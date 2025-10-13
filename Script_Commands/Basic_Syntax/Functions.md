@@ -322,12 +322,13 @@ function_handle with value:
 # Built-in functions
 ## far-field analysis
 
-The far field functions involve `farfieldeql` and `farfieldeql2d`, which can be conveniently used to implement far field projection in different physical situations.
+The far field functions involve `farfieldeql`, `farfieldeql2d` and `farfieldeqlprepareneardata`, which can be conveniently used to implement far field projection in different physical situations.
 
 
-### farfieldeql
+### farfieldeqlprepareneardata
 **Description**
-Returns the far field projection including three electric field components $E_{x}^{ff}, E_{y}^{ff}, E_{z}^{ff}$ in Cartesian coordinate system. This function can be used both in 2D and 3D simulation.
+Returns the near field data prepared for far field projection. The data is returned as `struct` data type containing *dS, lambda0, nv, aMesh, J, M*.
+where *dS* is the integration element, *lambda0* is the wavelength of the monitor, *nv* is the surface normal of the monitor, aMesh is the monitor coordinate matrix, *J* is the equivalent surface electric current, and *M* is the equivalent surface magnetic current. This function can be used both in 2D and 3D simulation.
 
 Used in FDTD.
 
@@ -365,8 +366,32 @@ C. A. Balanis, Antenna Theory and Design, 4th Edition. John Wiley & Sons , 2016.
 **Syntax**
 |Code|Function|
 |:---|:---|
-|`[Ex, Ey, Ez] = farfieldeql(myname, z, x, nlambda, index_n2f);`|Returns the far field projection including three electric field components $E_{x}^{ff}, E_{y}^{ff}, E_{z}^{ff}$ in Cartesian coordinate system, which can be used in 2D simulation. The size of each component is determined by the length of *z*, *x* vector. |
-|`[Ex, Ey, Ez] = farfieldeql(myname, x, y, z, nlambda, index_n2f);`|Returns the far field projection including three electric field components $E_{x}^{ff}, E_{y}^{ff}, E_{z}^{ff}$ in Cartesian coordinate system, which can be used in 3D simulation. The size of each component is determined by the length of *x*, *y*, *z* vector.|
+|`nearfield = farfieldeqlprepareneardata(myname,nlambda);`|Returns the near field data from FDTD monitor or dataset named "myname". The result is returned in form of the `struct` data type. |
+
+The meanings of the parameters in the above tabulation are illustrated as following:
+
+
+|name|type|default|description|
+|:---|:---|:---|:---|
+|myname|string|-|The name of the monitor from which far field is calculated.|
+|myname|dataset|-|The name of the dataset from which far field is calculated.|
+|nlambda|number|1(optional)|The index of the desired lambda point.|
+
+**See also**
+farfieldeql, farfieldeql2d
+
+
+### farfieldeql
+**Description**
+`farfieldeql` projects any surface fields from the pre-defined monitors to a series of points defined by vector lists. The X/Y/Z coordinates of each evaluation point are taken element-by-element from the vector lists. This command returns three electric field components $E_{x}^{ff}, E_{y}^{ff}, E_{z}^{ff}$ in Cartesian coordinate system. This function can be used both in 2D and 3D simulation.
+
+used in FDTD.
+
+**Syntax**
+|Code|Function|
+|:---|:---|
+|`[Ex, Ey, Ez] = farfieldeql(z, x, 0, nearfield, index_n2f);`|Returns the far field projection including three electric field components $E_{x}^{ff}, E_{y}^{ff}, E_{z}^{ff}$ in Cartesian coordinate system, which can be used in 2D simulation. The size of each component is determined by the length of *z*, *x* vector. |
+|`[Ex, Ey, Ez] = farfieldeql(x, y, z, nearfield, index_n2f);`|Returns the far field projection including three electric field components $E_{x}^{ff}, E_{y}^{ff}, E_{z}^{ff}$ in Cartesian coordinate system, which can be used in 3D simulation. The size of each component is determined by the length of *x*, *y*, *z* vector.|
 
 
 The meanings of the parameters in the above tabulation are illustrated as following:
@@ -374,13 +399,11 @@ The meanings of the parameters in the above tabulation are illustrated as follow
 
 |name|type|default|description|
 |:---|:---|:---|:---|
-|myname|string|-|the name of the FDFP monitor|
-|myname|dataset|-|the dataset of near field|
-|x|num|-|the position vector of x-axis|
-|y|num|-|the position vector of y-axis|
-|z|num|-|the position vector of z-axis|
-|nlambda|num|1 (optional)|the order number of lambda in frequency domain|
-|index_n2f|num|1 (optional)|the refractive index from near to far field|
+|x|vector|-|The x coordinates of the grid points where far field is calculated. Column vector is recommended. The length of X is L or 1.|
+|y|vector|-|The y coordinates of the grid points where far field is calculated. Column vector is recommended. The length of Y is L or 1.|
+|z|vector|-|The z coordinates of the grid points where far field is calculated. Column vector is recommended. The length of Z is L or 1.|
+|nearfield|struct|-|The near field data prepared for far field projection  from the `farfieldeqlprepareneardata` function.|
+|index_n2f|num|1 (optional)|The background refractive index of the transmission process from near-field to far-field.|
 
 **Compare between farfieldeql and farfieldeql2d**
 
@@ -389,7 +412,7 @@ Definition of far-field projection space and selection of simulation space：
 |-|2D simulation|3D simulation|
 |:-:|:-:|:-:|
 |1D projection|`farfieldeql`|`farfieldeql`|
-|2D projection|`farfieldeql2d`|-|
+|2D projection|`farfieldeql2d`|`farfieldeql2d`|
 |3D projection|-|`farfieldeql`|
 
 
@@ -408,14 +431,15 @@ y = cosd(phi);
 z = 0;
 # calculate far field
 myname = "far field from a closed box::xp";
-[Ex_xp, Ey_xp, Ez_xp] = farfieldeql(myname, x, y, z);
+nearfield = farfieldeqlprepareneardata(myname);
+[Ex_xp, Ey_xp, Ez_xp] = farfieldeql(x, y, z,nearfield);
 # show the far field
 figure;
-polar(phi*pi/180, abs(Ex_xp));
+polar(phi*pi/180, abs(Ex_xp),'b');
 figure;
-polar(phi*pi/180, abs(Ey_xp));
+polar(phi*pi/180, abs(Ey_xp),'b');
 figure;
-polar(phi*pi/180, abs(Ez_xp));
+polar(phi*pi/180, abs(Ez_xp),'b');
 ```
 
 Result:
@@ -430,11 +454,11 @@ abs(Ez_xp):
 
 
 **See also**
-farfieldeql2d
+farfieldeqlprepareneardata, farfieldeql2d
 
 ### farfieldeql2d
 **Description**
-Returns the far field projection including three electric field components $E_{x}^{ff}, E_{y}^{ff}, E_{z}^{ff}$ in Cartesian coordinate system. This function can only be used in 2D simulation.
+`farfieldeql2d` projects any surface fields from the pre-defined monitors to a series of points defined by vector lists. The X/Y/Z coordinates of each evaluatation point are generated from the vector lists as the 2D/3D grid coordinates. This command returns three electric field components $E_{x}^{ff}, E_{y}^{ff}, E_{z}^{ff}$ in Cartesian coordinate system. This function can be used both in 2D and 3D simulation.
 Calculate the far field projection on 2D projection surface.
 
 Used in FDTD.
@@ -442,19 +466,19 @@ Used in FDTD.
 **Syntax**
 |Code|Function|
 |:---|:---|
-|`[Ex, Ey, Ez] = farfieldeql2d(myname, z, x, nlambda, index_n2f);`|Returns the far field projection including three electric field components $E_{x}^{ff}, E_{y}^{ff}, E_{z}^{ff}$ in Cartesian coordinate system, which can only be used in 2D simulation. The size of each component is determined by the length of *z*, *x* vector.|
+|`[Ex, Ey, Ez] = farfieldeql2d(z, x, 0, nearfield, index_n2f);`|Returns the far field projection including three electric field components $E_{x}^{ff}, E_{y}^{ff}, E_{z}^{ff}$ in Cartesian coordinate system, which can be used in 2D simulation. The size of each component is determined by the length of *z*, *x* vector.|
+|`[Ex, Ey, Ez] = farfieldeql2d(x, y, z, nearfield, index_n2f);`|Returns the far field projection including three electric field components $E_{x}^{ff}, E_{y}^{ff}, E_{z}^{ff}$ in Cartesian coordinate system, which can be used in 3D simulation. The size of each component is determined by the length of *x*, *y*, *z* vector.|
 
 
 The meanings of the parameters in the above tabulation are illustrated as following:
 
 |name|type|default|description|
 |:---|:---|:---|:---|
-|myname|string|-|the name of the FDFP monitor|
-|myname|dataset|-|the dataset of near field|
-|z|num|-|the position vector of z-axis|
-|x|num|-|the position vector of x-axis|
-|nlambda|num| 1 (optional)|the order number of lambda in frequency domain|
-|index_n2f|num| 1 (optional)|the refractive index from near to far field|
+|x|vector|-|The x coordinates of the grid points where far field is calculated. Column vector is recommended. The length of X is M or 1.|
+|y|vector|-|The y coordinates of the grid points where far field is calculated. Column vector is recommended. The length of Y is N or 1.|
+|z|vector|-|The z coordinates of the grid points where far field is calculated. Column vector is recommended. The length of Z is P or 1.|
+|nearfield|struct|-|The near field data prepared for far field projection  from the `farfieldeqlprepareneardata` function.|
+|index_n2f|num|1 (optional)|The background refractive index of the transmission process from near-field to far-field.|
 
 **Example**
 
@@ -467,7 +491,8 @@ y = 0;
 
 # calculate farfield
 myname = "far field from a closed box::zp";
-[Ez_xp, Ex_xp, Ey_xp] = farfieldeql2d(myname, z, x);
+nearfield = farfieldeqlprepareneardata(myname);
+[Ez_xp, Ex_xp, Ey_xp] = farfieldeql2d(z, x, 0, nearfield);
 
 # show the far field
 figure;
@@ -494,7 +519,7 @@ Ez_xp:
 C. A. Balanis, Antenna Theory and Design, 4th Edition. John Wiley & Sons , 2016.
 
 **See also**
-farfieldeql
+farfieldeqlprepareneardata, farfieldeql
 
 ## far-field angular spectrum method
 The far-field angular spectrum method functions involve `farfieldas` and `farfieldpolar`, which can quickly obtain the far field projection in Cartesian and spherical coordinate systems.

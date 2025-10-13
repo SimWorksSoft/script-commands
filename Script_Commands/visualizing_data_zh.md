@@ -16,6 +16,60 @@ dateCreated: 2022-06-14T08:41:08.154Z
 
 # Graphics
 
+## visualize
+**Description**
+Sends data to the visualizer.
+Used in FDTD and FDE.
+
+**Syntax**
+|Code|Function|
+|:---|:---|
+|`visualize(E)`|Plots the dataset E in the Visualizer. |
+|`visualize(E,H)`|Sends the dataset E and H to the Visualizer. |
+
+ **See also**
+ add2visualizer
+
+## add2visualizer
+**Description**
+Adds data to an existing visualizer.
+Used in FDTD and FDE.
+
+**Syntax**
+|Code|Function|
+|:---|:---|
+|`add2visualizer( dataset, visualizer number )`|This command adds data to an existing visualizer. If there is no visualizer corresponding to the visualizer number, then the command is ignored. |
+
+**Example**
+This example creates a 3D dataset of random numbers and plots it in the visualizer. An additional dataset is created and added to the visualizer using add2visualizer.
+```msf
+nPts = 10;
+x = 1:nPts;
+y = 1:nPts;
+z = 1:nPts;
+visualize(x);
+data=rand(nPts,nPts,nPts);
+dataset = matrixdataset("dataset");
+dataset.addparameter("x",x);
+dataset.addparameter("y",y);
+dataset.addparameter("z",z);
+dataset.addattribute("data",data);
+visualize(dataset);
+dataset2 = matrixdataset("dataset2");
+dataset2.addparameter("x",x);
+dataset2.addparameter("y",y);
+dataset2.addparameter("z",z);
+dataset2.addattribute("data",data+10);
+add2visualizer(dataset2,2);
+```
+
+Result:
+![visualize](https://simworksofficial-files.oss-cn-beijing.aliyuncs.com/mdfile/resources/img/Script_Commands_visualize.png)
+
+![add2visualizer](https://simworksofficial-files.oss-cn-beijing.aliyuncs.com/mdfile/resources/img/Script_Commands_add2visualizer.png)
+ **See also**
+ visualize
+
 ## plot 
 **Description**
 Plots a 2D line plot according to the designated data.
@@ -143,7 +197,7 @@ x0 = linspace(-2, 2, 500);
 y0 = linspace(-2, 2, 500);
 [x,y] = meshgrid(x0, y0);
 d = sqrt(x.^2 + y.^2);
-E = exp(-(d).^2); # 2D Guassian distribution
+E = exp(-(d).^2); # 2D Gaussian distribution
 
 # show image
 figure;
@@ -167,9 +221,9 @@ Used in FDTD and FDE.
 **Syntax**
 |Code|Function|
 |:---|:---|
-|`surf(F);`|Draws a 3D spatial curved surface according to *F* data. |
-|`surf(x, y, F);`|Draws a 3D spatial curved surface according to *F* versus *x*, *y*. The parameter *x*, *y* can be  vectors or matrices. |
-|`surf(x, y, Z, F);`|Draws a 3D spatial curved surface according to *F* versus *x*, *y*, *z*. The *F* data is manifested by color, and the parameters *x*, *y*, *z* are the coordinates data. The parameter *x*, *y* can be vectors or matrices but *Z* must be matrix with the same dimensions as *F*. |
+|`surf(x, y, z, F);`|Draws a 3D spatial curved surface. The *F* data is manifested by color, and the parameters *x*, *y*, *z* are the coordinates data. The parameters *x*, *y* can be vectors or matrices but *z* must be a matrix with the same dimensions as *F*. The `surf` function first draws the curved surface (which can be seen as the image of the function `z = z(x, y)` in some cases ) using x, y, z, then renders the color of each point on the surface according to the matrix *F*. |
+|`surf(x, y, F);`|Draws a 3D spatial curved surface. The parameters *x*, *y* can be vectors or matrices. This is equivalent to `surf(x, y, F, F)` . |
+|`surf(F);`|Draws a 3D spatial curved surface. The x and y coordinates are the column and row indices of the elements in *F* respectively. The *F* is also used to render the colors of the points on the surface. |
 
 The following picture illustrates the surf function how to handle the input parameters:
 
@@ -178,15 +232,56 @@ The following picture illustrates the surf function how to handle the input para
 
 
 >when using `surf(x, y, F)`:
-(1)If *x, y* are vectors, vector *x* has the length M, and *y* has the length N, and the surface data *F* has the size M * N.
-(2)If *x, y* are matrices, then matrix *x*, *y*, *F* have the same size M * N.
-when using `surf(x, y, Z, F)`:
-(1)If *x, y* are vectors, *x* has the length M, *y* has the length N, *Z* and *F* have the same size M * N.
-(2)If *x, y* are matrices, then matrix *x, y, Z, F* have the same size M * N. 
+>
+>(1)If *x, y* are vectors, vector *x* has the length N, and *y* has the length M, and the surface data *F* has the size M * N.
+>
+>(2)If *x, y* are matrices, then matrix *x*, *y*, *F* have the same size M * N.
+>
+>when using `surf(x, y, z, F)`:
+>
+>(1)If *x, y* are vectors, *x* has the length N, *y* has the length M, *z* and *F* have the same size M * N.
+>
+>(2)If *x, y* are matrices, then matrix *x, y, z, F* have the same size M * N. 
 
 **Example**
-
 Example 1:
+
+The `surf` function uses the first three parameters x0, y0, G to draw the curved surface and the fourth parameter to determine the color of each point on the surface. 
+
+
+```msf
+# prepare data
+x0 = linspace(-2, 2, 200);
+y0 = linspace(-2, 2, 200);
+[x,y] = meshgrid(x0, y0);
+d = sqrt((x-0).^2 + (y-0).^2); # for the convenience of multiplying factor in some cases
+G = exp(-(d).^2); # 2D Gaussian distribution
+
+
+# the color (also value) matrix is G
+figure;
+surf(x0,y0,G,G);
+xlabel('x');
+ylabel('y');
+title('Gaussian-surf: color matrix is G');
+
+
+# the color (also value) matrix is -G
+figure;
+surf(x0,y0,G,-G);
+xlabel('x');
+ylabel('y');
+title('Gaussian-surf: color matrix is -G');
+```
+
+Result: 
+
+![surf_example0_ColorMatrixG.png](https://simworksofficial-files.oss-cn-beijing.aliyuncs.com/mdfile/resources/img/surf_example1_ColorMatrixG.png)
+
+![surf_example0_ColorMatrixNegativeG](https://simworksofficial-files.oss-cn-beijing.aliyuncs.com/mdfile/resources/img/surf_example1_ColorMatrixNegativeG.png)
+
+
+Example 2:
 Draw the Gaussian distribution E as function of x, y using surf function.
 ```msf
 # prepare data
@@ -194,7 +289,7 @@ x0 = linspace(-2, 2, 200);
 y0 = linspace(-2, 2, 200);
 [x,y] = meshgrid(x0, y0);
 d = sqrt((x-0).^2 + (y-0).^2);
-E = exp(-(d).^2); # 2D Guassian distribution
+E = exp(-(d).^2); # 2D Gaussian distribution
 
 # show image
 figure;
@@ -205,9 +300,9 @@ title('Gaussian-surf');
 ```
 ![surf_example_three_parameter.png](https://simworksofficial-files.oss-cn-beijing.aliyuncs.com/mdfile/resources/img/surf_example_three_parameter.png)
 
-Example 2:
+Example 3:
 When input 4 parameters, and 3rd parameter defines the position in z-axis, and the 4th parameter determines the color of surface. 
-Continue running the following code after running code in example 1. 
+Continue running the following code after running code in example 2. 
 
 ```msf
 z = zeros(size(x)); # set z all to 0
@@ -220,7 +315,7 @@ title('Gaussian-surf');
 ![surf_example_four_parameter.png](https://simworksofficial-files.oss-cn-beijing.aliyuncs.com/mdfile/resources/img/surf_example_four_parameter.png)
 
 
-Example 3:
+Example 4:
 
 Generally, the surf function uses three inputs enough, but when drawing a radiation map, all 4 parameters needed.
 Draw radiation map using surf function.
@@ -230,7 +325,7 @@ x0 = linspace(-2, 2, 200);
 y0 = linspace(-2, 2, 200);
 [x,y] = meshgrid(x0, y0);
 d = sqrt((x-0).^2 + (y-0).^2);
-E = exp(-(d).^2); # 2D Guassian distribution
+E = exp(-(d).^2); # 2D Gaussian distribution
 
 # when in spherical coordinate system
 E_size = size(E);
@@ -241,7 +336,7 @@ theta = linspace(0, pi, numv);   # theta [0, pi]
 phi = linspace(0, 2*pi, numt);   # phi [0, 2*pi]
 [T,U] = meshgrid(phi, theta);
 
-# convert  spherical coordinate theta, phi, r to Cartesian coordiante x, y, z  
+# convert  spherical coordinate theta, phi, r to Cartesian coordinate x, y, z  
 X = sin(U).*cos(T);
 Y = sin(U).*sin(T);
 Z = cos(U);
@@ -272,14 +367,56 @@ Result :
 Draws a 3D wireframe mesh plot.
 Used in FDTD and FDE.
 
+The syntax and usage of this function are similar to the `surf` function. The difference between them is the `mesh` function only draws wireframe mesh, not rendering the surface.
+
 **Syntax**
 |Code|Function|
 |:---|:---|
-|`mesh(F);`|Draws a 3D wireframe mesh plot according to *F* data. |
-|`mesh(x, y, F);`|Draws a 3D wireframe mesh plot according to *F* data versus *x*, *y*. The parameter *x*, *y* can be  vectors or matrices. |
+|`mesh(x, y, z, F);`|Draws a 3D wireframe mesh plot. The *F* data is manifested by color, and the parameters *x*, *y*, *z* are the coordinate data. The parameters *x*, *y* can be vectors or matrices but *z* must be a matrix with the same dimensions as *F*. The `mesh` function first draws the wireframe mesh using x, y, z, then renders the color of each point on the mesh according to the matrix *F*. |
+|`mesh(x, y, F);`|Draws a 3D wireframe mesh plot. The parameters *x*, *y* can be vectors or matrices. This is equivalent to `mesh(x, y, F, F)`. |
+|`mesh(F);`|Draws a 3D wireframe mesh plot. The x and y coordinates are the column and row indices of the elements in *F* respectively. The *F* is also used to render the colors of the points in the mesh. |
 
 
 **Example**
+
+Example 1:
+
+The `mesh` function uses the first three parameters x0, y0, G to draw the wireframe mesh and the fourth parameter to determine the color of each point on the mesh. 
+
+
+```msf
+# prepare data
+x0 = linspace(-2, 2, 50);
+y0 = linspace(-2, 2, 50);
+[x,y] = meshgrid(x0, y0);
+d = sqrt((x-0).^2 + (y-0).^2); # for the convenience of multiplying factor in some cases
+G = exp(-(d).^2); # 2D Gaussian distribution
+
+
+# the color (also value) matrix is G
+figure;
+mesh(x0,y0,G,G);
+xlabel('x');
+ylabel('y');
+title('Gaussian-mesh: color matrix is G');
+
+
+# the color (also value) matrix is -G
+figure;
+mesh(x0,y0,G,-G);
+xlabel('x');
+ylabel('y');
+title('Gaussian-mesh: color matrix is -G');
+```
+
+Result:
+
+![mesh_example1_ColorMatrixG.png](https://simworksofficial-files.oss-cn-beijing.aliyuncs.com/mdfile/resources/img/mesh_example1_ColorMatrixG.png)
+
+![mesh_example1_ColorMatrixNegativeG.png](https://simworksofficial-files.oss-cn-beijing.aliyuncs.com/mdfile/resources/img/mesh_example1_ColorMatrixNegativeG.png)
+
+
+Example 2:
 
 ```msf
 
@@ -287,7 +424,7 @@ x0 = linspace(-2, 2, 50);
 y0 = linspace(-2, 2, 50);
 [x,y] = meshgrid(x0, y0);
 d = sqrt((x-0).^2 + (y-0).^2);
-E = exp(-(d).^2); # 2D Guassian distribution
+E = exp(-(d).^2); # 2D Gaussian distribution
 
 # show image
 figure();
@@ -361,21 +498,21 @@ rlim
 
 ## smithchart
 **Description**
-Plots smith chart.
+Plots Smith chart.
 Used in FDTD and FDE.
 
 
 **Syntax**
 |Code|Function|
 |:---|:---|
-|`smithchart(Z);`|Plots a smith chart according to the data *Z* .|
-|`smithchart(Z, 'line_type');`|Plots a smith chart with specified line style, marker and color designated by *'line_type'* according to the data *Z* . |
-|`smithchart(Z, 'line_type', Z_norm);`|Plots a smith chart with normalized impedance *Z_norm*. The default impedance used for normalization is 50 Ohms. |
-|`smithchart(Z, 'line_type', Z_norm, equal_aspect_ratio);`|	Plots a smith chart with normalized impedance *Z_norm* (The default impedance used for normalization is 50 Ohms) and equal aspect ratio *equal_aspect_ratio*. |
+|`smithchart(Z);`|Plots a Smith chart according to the data *Z* .|
+|`smithchart(Z, 'line_type');`|Plots a Smith chart with specified line style, marker and color designated by *'line_type'* according to the data *Z* . |
+|`smithchart(Z, 'line_type', Z_norm);`|Plots a Smith chart with normalized impedance *Z_norm*. The default impedance used for normalization is 50 Ohms. |
+|`smithchart(Z, 'line_type', Z_norm, equal_aspect_ratio);`|	Plots a Smith chart with normalized impedance *Z_norm* (The default impedance used for normalization is 50 Ohms) and equal aspect ratio *equal_aspect_ratio*. |
 
 
 **Example**
-Plots the simth chart according to the Z data.
+Plots the Smith chart according to the Z data.
 ```msf
 Z = 50*(3+1i*linspace(-50,50,101)); 
 
@@ -390,16 +527,52 @@ polar
 ## surfsph
 **Description**
 Draw a radiation map.
-This function plots a radiation map. The value F is the value(also color) above the mesh in the theta-phi-R spatial curved surface defined by theta and phi. In particular, R is the 3rd-axis position, not the value(also color).
+This function plots a radiation map. When using the `surfsph(phi, theta, r, F)` to draw, the value F is the value(also color) above the mesh in the theta-phi-r spatial curved surface defined by theta and phi. In particular, `r` is the 3rd-axis position, not the value.
 Used in FDTD and FDE.
 
 **Syntax**
 |Code|Function|
 |:---|:---|
-|`surfsph(phi, theta, R);`|Draw a radiation map.The parameters *phi*, *theta*, *R* are the coordinate vector array to set coordinate axis range respectively. F matrix is the module of the three inputs, which is automatically calculated. |
-|`surfsph(phi, theta, R, F)`|Draw a radiation map. The parameters *phi*, *theta*, *R* are the coordinate vector array to set coordinate axis range respectively. And parameter *F* is field matrix, whose dimensions are the same as ndgrid(phi, theta) or meshgrid(phi,theta). |
+|`surfsph(phi, theta, r, F)`|Draw a radiation map. The parameters *phi*, *theta*, *r* are the coordinate arrays respectively. And parameter *F* is field matrix(the value or color above the surface). The parameters *phi*, *theta* can be vectors or matrices, but *r* must be a matrix with the same dimensions as *F*. The `surfsph` function first draws the curved surface (which can be seen as the image of the function `r = r(phi, theta)` in some cases ) using *phi*, *theta*, *r*, then renders the color of each point on the surface according to the matrix *F*. |
+|`surfsph(phi, theta, F);`| Draw a radiation map. The parameters *phi*, *theta*, *F* are the coordinate arrays respectively. This is equivalent to `surfsph(phi, theta, F, F)`. |
+|`surfsph(F)`|Draw a radiation map. The x and y coordinates are the column and row indices of the elements in *F* respectively. The *F* is also used to render the colors of the points on the surface.|
 
 **Example**
+
+
+Example 1:
+
+The `surfsph` function uses the first three parameters Phi, Theta, R to draw the curved surface and the fourth parameter to determine the color of each point on the surface. 
+
+
+```
+# prepare data
+phi = linspace(0, 2.*pi, 45);  # phi [0,2*pi]
+theta = linspace(0, pi, 75);   # theta [0,pi]
+[Phi, Theta] = meshgrid(phi, theta);
+
+R = ones(length(theta), length(phi));
+F = cos(0.5 * Theta);
+
+# the color (also value) matrix is F
+figure;
+surfsph(Phi, Theta, R, F);
+title("color matrix: F");
+
+# the color (also value) matrix is -F
+figure;
+surfsph(Phi, Theta, R, -F);
+title("color matrix: -F");
+
+```
+Result:
+
+![surfsph_example_1_ColorMatrixF.png](https://simworksofficial-files.oss-cn-beijing.aliyuncs.com/mdfile/resources/img/surfsph_example_1_ColorMatrixF.png)
+
+![surfsph_example_1_ColorMatrixNegativeF.png](https://simworksofficial-files.oss-cn-beijing.aliyuncs.com/mdfile/resources/img/surfsph_example_1_ColorMatrixNegativeF.png)
+
+
+Example 2: 
 
 ```msf
 # theta,phi data
@@ -415,7 +588,7 @@ X = sin(U).*cos(T);
 Y = sin(U).*sin(T);
 Z = cos(U);
 
-# use surfsph to show iamge 
+# use surfsph to show image 
 figure;
 surfsph(T, U, abs(E)./abs(E));
 title("surfsph-a classical antenna");
@@ -458,7 +631,7 @@ n = 10;
 psi = pi/2.*(cos(U)-1)-pi/10;
 E = sin(pi/2/n).*sin(n.*psi/2)./sin(psi/2);
 
-# sursph draw 
+# surfsph draw 
 figure();
 surfsph(T, U, abs(E), abs(E));
 title('surfsph-a_classical_antenna');
@@ -499,7 +672,7 @@ Used in FDTD and FDE.
 |Code|Function|
 |:---|:---|
 |`figure;`|Creates a new figure window using default property values. The resulting figure is the current figure. |
-|`figure(id);`|Creates a new figure window specified by *id* as the current figure window and displays it on top of all other figures. |
+|`figure(id);`|Make the figure window whose id number is *id* as the current figure window and display it on the top of all other figures. If the designated figure window doesn't exist, then create a new window with the specified id number. |
 
 **See also**
 plot
@@ -846,14 +1019,14 @@ xlabel
 
 ## rlim
 **Description**
-Sets the r-axis limits,supports figure of `polar`. 
+Sets the r-axis limits, supports figure of `polar`. 
 Used in FDTD and FDE.
 
 **Syntax**
 |Code|Function|
 |:---|:---|
 |`rlim(r_lim);`| Sets the r-axis limits for the current polar figure with the specified number. The parameter *r_lim* must be a two-element vector of the form [r_min, r_max], where r_max is a numeric value greater than r_min. |
-|`rlim(fig_id, limit);`|Sets r-axis limits for the  polar figure designated by *fig_id* with specified number. The parameter *r_lim* must be a two-element vector of the form [r_min, r_max], where r_max is a numeric value greater than r_min.  |
+|`rlim(fig_id, r_lim);`|Sets r-axis limits for the  polar figure designated by *fig_id* with specified number. The parameter *r_lim* must be a two-element vector of the form [r_min, r_max], where r_max is a numeric value greater than r_min.  |
 |`rlim('auto');`|Sets the r-axis limits back to the original values.|
 
 **Example**
@@ -968,7 +1141,7 @@ Used in FDTD and FDE.
 **Syntax**
 |Code| Function |
 |:---|:---|
-|`holdoff;`|Clears the plot in the current figure and reset the figure properties so that the new plot can be shown in the current figure alone.|
+|`holdoff;`|Set the axes hold state off. Clears the existing plot in the current figure and resets the figure properties when drawing the new plot so that the new plot can be shown in the current figure alone.|
 
 **See also**
 holdon

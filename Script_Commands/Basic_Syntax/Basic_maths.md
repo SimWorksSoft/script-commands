@@ -587,7 +587,7 @@ Used in FDTD and FDE.
 **Syntax**
 |Code|Function|
 |:---|:---|
-|`out = min(A):`|Returns the minimum value(s) contained in the matrix. If the input *A* is a vector, returns the smallest value of it. If the input *A* is a matrix, returns a row-vector containing the minimum values from each column of *A*.|
+|`out = min(A);`|Returns the minimum value(s) contained in the matrix. If the input *A* is a vector, returns the smallest value of it. If the input *A* is a matrix, returns a row-vector containing the minimum values from each column of *A*.|
 |`out = min(A, B);`|Returns a matrix the same size as matrix *A*. The matrices *A* and *B* must be the same size. The output matrix *out* contains the smaller of the corresponding elements in A and B.|
 
 *Note:*  
@@ -1520,7 +1520,7 @@ Used in FDTD and FDE.
 |Code|Function|
 |:---|:---|
 |`[r, elevation, azimuth] = cart2sph(x, y, z);`|Converts the Cartesian coordinate *(x, y, z)* to the spherical coordinate *(r, elevation, azimuth)* . The inputs *x, y, z* can be numbers or vectors. When *x, y, z* are vectors, this function will convert *(x(i), y(i), z(i))* to spherical coordinate.|
-|`[r, elevation, azimuth] = cart2sph(x, y, z, val);`|Converts the Cartesian coordinate *(x, y, z)* to the spherical coordinate *(r, elevation, azimuth)*. The inputs *x, y, z* can be numbers or vectors. *val* control the direction of the conversion.|
+|`[r, elevation, azimuth] = cart2sph(x, y, z, val);`|Converts the Cartesian coordinate *(x, y, z)* to the spherical coordinate *(r, elevation, azimuth)*. The inputs *x, y, z* can be numbers or vectors. *val* controls the direction of the conversion.|
 
 
 **See also**
@@ -1550,7 +1550,7 @@ Used in FDTD and FDE.
 |Code|Function|
 |:---|:---|
 |`[r, elevation, azimuth] = cyl2sph(rho, theta, z);`|Converts the cylindrical coordinate *(rho, theta, z)* to the spherical coordinate *(r, elevation, azimuth)*.|
-|`[r, elevation, azimuth] = cyl2sph(rho, theta, z, val);`|Converts the cylindrical coordinate *(rho, theta, z)* to the spherical coordinate *(r, elevation, azimuth)*. *val* control the direction of the conversion.|
+|`[r, elevation, azimuth] = cyl2sph(rho, theta, z, val);`|Converts the cylindrical coordinate *(rho, theta, z)* to the spherical coordinate *(r, elevation, azimuth)*. *val* controls the direction of the conversion.|
 
 **See also**
 cart2cyl, cart2sph 

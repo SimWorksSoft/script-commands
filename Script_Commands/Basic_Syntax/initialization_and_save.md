@@ -25,8 +25,8 @@ Used in FDTD and FDE.
 **Syntax**
 |Code| Function |
 |:---|:---|
-|`clear;`| Clears all workspace variables.|
-|`clear('var_name_1', 'var_name_2', ...);`|Clears the designated variables named *'var_name_1'*, *'var_name_2'* in workspace.|
+|`clear;`| Clears all workspace variables and returns the number of variables cleared successfully. |
+|`clear('var_name_1', 'var_name_2', ...);`|Clears the designated variables named *'var_name_1'*, *'var_name_2'*, ... in workspace. Then returns the number of variables cleared successfully. |
  
 **Example**
 ```msf
@@ -43,7 +43,7 @@ Used in FDTD and FDE.
 **Syntax**
 |Code|	Function |
 |:---|:---|
-|`clearall;`|Clears all workspace variables.|
+|`clearall;`|Clears all workspace variables and returns the number of variables cleared successfully.|
  
 **See also**
 clear
@@ -64,7 +64,7 @@ clear
 
 ## delete
 **Description**
-Deletes the selected  objects.
+Deletes the selected objects.
 Used in FDTD and FDE.
 
 **Syntax**
@@ -74,6 +74,9 @@ Used in FDTD and FDE.
 |`delete('object_name');`| Deletes the object named *'object_name'*.|
  
 **Example**
+
+Delete the index monitor named "new_index_monitor" of FDTD Solver.
+
 ```msf
 delete('FDTD::new_index_monitor');
 ```
@@ -103,14 +106,14 @@ Used in FDTD and FDE.
 **Syntax**
 |Code|	Function|
 |:---|:---|
-|`clearglobalvariable('variablename');`| Clears the global variable  named *'variablename'*.|
+|`clearglobalvariable('variablename');`| Clears the global variable named *'variablename'*.|
  
 **See also**
 clearallglobalvariable
 
 ## clearallglobalvariable
 **Description**
-Clears all  the  global variables. 
+Clears all the global variables. 
 Used in FDTD and FDE.
 
 **Syntax**
@@ -133,8 +136,8 @@ Used in FDTD and FDE.
 **Syntax**
 |Code| Function|
 |:---|:---|
-|`savedatafile('file_path');`|Saves all current variables to the specified .mdf file. If it is not an absolute path, the current path is the work path.|
-|`savedatafile('file_path', var1, var2, ...);`| Saves the specified variables to the  designated .mdf file.|
+|`savedatafile('file_path');`|Saves all the current variables in the *Script Workspace* to the specified .mdf file. If the 'file_path' is not an absolute path, the current path is the work path.|
+|`savedatafile('file_path', var1, var2, ...);`| Saves the specified variables in the *Script Workspace* to the designated .mdf file. If the 'file_path' is not an absolute path, the current path is the work path.|
  
 **Example**  
 ```msf
@@ -156,8 +159,8 @@ Used in FDTD and FDE.
 **Syntax**
 |Code| Function |
 |:---|:---|
-|`savematlabmatfile('file_path');`|Saves all current variables to the specified .mat file. If it is not an absolute path, the current path is the work path.|
-|`savematlabmatfile('file_path', var1, var2...)`| Saves the specified variables to the .mat file.|
+|`savematlabmatfile('file_path');`|Saves all current variables to the specified .mat file. If the 'file_path' is not an absolute path, the current path is the work path.|
+|`savematlabmatfile('file_path', var1, var2...)`| Saves the specified variables to the .mat file. If the 'file_path' is not an absolute path, the current path is the work path.|
  
 **Example**
 ```msf
@@ -181,7 +184,7 @@ Used in FDTD and FDE.
 |Code | Function |
 |:---|:---|
 |`saveproject;`|Saves current project.|
-|`saveproject('file_path');`|Saves the project file according to the *'file_path'*.|
+|`saveproject('file_path');`|Saves the project file to the location specified by *'file_path'*.|
  
 **Example**
 ```msf
@@ -293,21 +296,11 @@ printf, sprintf, write, read
 Binary stream output. 
 Used in FDTD and FDE.
 
-`fwrite` writes *data* to the file identified by *'file_name'*. The *data* is cast, or converted to the data type identified in *type*. `fwrite` roughly mimics the C programming language's `fwrite` library function.
-
-The *data* can either be a dense numeric matrix, or a string matrix. The size of the matrix does not need to be specified because the entire matrix is written.
-
-If *data* is a string matrix, then the first character of each element is written to the file named *file_name*, after being coerced to type *type*.
-
-Allowable arguments are:
-num, string
-
-
 
 **Syntax**
 |Code| Function |
 |:---|:---|
-|`out = fwrite ( 'file_name', type, data )`|Writes data to the file identified by 'file_name'.|
+|`out = fwrite ( 'file_name', type, data )`| `fwrite` writes *data* to the file identified by *'file_name'*. The *data* is cast, or converted to the data type identified in *type*. `fwrite` roughly mimics the C programming language's `fwrite` library function. The *data* can either be a dense numeric matrix, or a string matrix. The size of the matrix does not need to be specified because the entire matrix is written. If *data* is a string matrix, then the first character of each element is written to the file named *file_name*, after being coerced to type *type*. Allowable type arguments are num and string. |
 
 
 **See also**
@@ -321,15 +314,6 @@ Used in FDTD and FDE.
 
 `format` sets the output print format for all numeric output. If no arguments are supplied, then the output print formats are reset to the default values.
 
-- PRECISION
-Represents the precision with which numbers will be printed. For instance, if PRECISION has a value of 4, then 4 significant digits will be printed for numeric values.
-
-- WIDTH
-Represents the minimum field width of the formatted output.
-
-`format` returns a 2-element matrix containing the previous width and precision values. Subsequently, this matrix can be used to reset format.
-
-
 **Syntax**
 |Code| Function |
 |:---|:---|
@@ -337,6 +321,15 @@ Represents the minimum field width of the formatted output.
 |`out = format( PRECISION )`|Sets the output print format for all numeric output with  designated precision.|
 |`out = format( WIDTH, PRECISION )`|Sets the output print format for all numeric output with  designated minimum field width and  precision.|
 
+The meanings of the input parameters are as follows:
+
+- PRECISION
+Represents the precision with which numbers will be printed. For instance, if PRECISION has a value of 4, then 4 significant digits will be printed for numeric values.
+
+- WIDTH
+Represents the minimum field width of the formatted output.
+
+`format` returns a 2-element matrix containing the previous width and precision values. Subsequently, this matrix can be used to reset format.
 
 
 **Example**
@@ -394,17 +387,16 @@ Used in FDTD and FDE.
 
 The features are limited because RLaB does not support all of the data type the C-language does.
 
-- formatstring
-This parameter must be a valid `printf` format string.
-- VARi
-VARi are any number of constants or variables that match the format string. `printf` cannot print out vector, matrix, or list objects as a whole. Valid print objects are strings, constants, and scalars.
-
-
 **Syntax**
 |Code| Function |
 |:---|:---|
 |`out = printf ( formatstring , VARi ... )`|Formatted printing.|
 
+The meanings of the input parameters are as follows:
+- formatstring
+This parameter must be a valid `printf` format string.
+- VARi
+VARi are any number of constants or variables that match the format string. `printf` cannot print out vector, matrix, or struct objects as a whole. Valid print objects are strings, constants, and scalars.
 
 **Example**
 
@@ -433,7 +425,7 @@ a[2;3] = 0.228156
 ```     
 However, it would be more efficient to use:
 ```msf
-writem('stdout', a);
+print(a);
 ```
 
 **See also**
@@ -465,13 +457,15 @@ Used in FDTD and FDE.
 `writem` is the counterpart to `readm`. `writem` writes the matrix data to the file denoted by the 1st argument in a generic format.
 
 The format used is:
+```
+line 1:     value[1;1]     ...  value[1;ncol] \n
+...
+line nrow:  value[nrow;1]  ...  value[nrow;ncol] \n
+```   
 
- line 1:         value[1;1]    ... value[1;ncol] \n
-line nrow:      value[nrow;1] ... value[nrow;ncol] \n
-        
 `writem` will write real and complex numeric matrices, as well as string matrices even though `readm` can only read real numeric matrices. Complex matrices are written as a single 2*nrow by ncolumn real matrix. Sparse matrices are written as triplets (row column value) for each element of the matrix.
 
-`writem` does not close the file after writing A. The file is left open for further writes if necessary. `close` can be called to explicitly close the file.
+`writem` does not close the file after writing A. The file is left open for further writes if necessary. `fclose` can be called to explicitly close the file.
 
 **Syntax**
 |Code| Function |
@@ -486,7 +480,7 @@ fclose("stdout.txt")
 ```
 
 **See also**
-close, getline, open, readm, write
+fclose, getline, open, readm, write
 
 
 ## writeascii
@@ -529,7 +523,7 @@ A third, and optional argument, is a string specifying either the default, or an
 **Syntax**
 |Code| Function |
 |:---|:---|
-|`out = spwrite( FILENAME , SPM , FORMAT )`|Writes a sparse matrix to file.|
+|`out = spwrite( FILENAME, SPM, FORMAT )`|Writes the sparse matrix *SPM* to the file named *FILENAME* according to the designated format *FORMAT*.|
 
 
 **See also**
@@ -548,13 +542,13 @@ The features are limited because RLaB does not support all of the data types the
 |:---|:---|
 |`out = sprintf( stringvar, formatstr, VARi ... )`|Formatted printing to a string.|
 
-The meaning of the input parameters are as follows: 
+The meanings of the input parameters are as follows: 
 - stringvar
 The output of `sprintf` is written to this variable.
 - formatstr
 A valid `sprintf` format string.
 - VARi
-Are any number of constants or variables that match the format string. `sprintf` cannot print out vector, matrix, or list objects as a whole. Valid print objects are strings, constants, and scalars.
+Are any number of constants or variables that match the format string. `sprintf` cannot print out vector, matrix, or struct objects as a whole. Valid print objects are strings, constants, and scalars.
 
 **See also**
 printf, fprintf, write, read
@@ -638,7 +632,7 @@ Used in FDTD and FDE.
 |Code|Function|
 |:---|:---|
 |`loadh5file( file_path ) `| Imports the data in the h5df file specified by file path *file_path* . The input *file_path* must be a string or a string variable. |
-|`loadh5file( file_path, var )`| Stores the data to the struct *var* in h5df file specified by *file_path*. If *var* is a struct variable, it will be attached to *var*, otherwise *var* will be assigned as a struct variable. |
+|`loadh5file( file_path, var )`| Stores the data in h5df file specified by *file_path* to the struct *var* . If *var* is a struct variable, it will be attached to *var*, otherwise *var* will be assigned as a struct variable. |
 
 **Example**
 
@@ -658,7 +652,7 @@ saveh5file
 
 ## loadascii
 **Description**
-Loads  data in specified .mdfascii file into workspace.
+Loads data in specified .mdfascii file into workspace.
 Used in FDTD and FDE.
  
 **Syntax**
@@ -687,8 +681,20 @@ Used in FDTD and FDE.
 **Syntax**
 |Code|Function|
 |:---|:---|
-|`fopen('file_path');`|Opens the file according to the designated path.|
-|`fopen('file_path', 'access_type');`|Opens the file according to the designated  access type.|
+|`file_id = fopen('file_path');`|Opens the file according to the designated path. The output *file_id* is the number used to identify the opened file.|
+|`file_id = fopen('file_path', 'access_type');`|Opens the file according to the designated access type. The output *file_id* is the number used to identify the opened file.|
+
+The `fopen` functions allows user to specify the file access mode. The allowed file access modes are as follows:
+
+|Access type string|Description|
+|:---|:---|
+|'r'|Opens a file for reading. The file to be opened must exist.|
+|'w'|Opens an existing file or creates a new file for writing. The existing contents will be covered.|
+|'a'|Opens an existing file or creates a new file for appending. The new contents will be written after the existing contents.|
+|'r+'|Opens a file for reading and writing and the file must exist. The existing contents will be covered.|
+|'w+'|Opens an existing file or creates a new file for reading and writing. The existing contents will be covered.|
+|'a+'|Opens an existing file or creates a new file for reading and appending. The new contents will be written after the existing contents.|
+
 
 **See also**
 fclose
@@ -712,13 +718,20 @@ fread
 
 ## fread
 **Description**
-Reads NITEMS of type TYPE from FILENAME (a string) and returns the result in a numeric matrix.
+Reads specified number of data in the designated type from the designated file and returns the result in a numeric matrix.
 Used in FDTD and FDE.
 
 
-Allowable arguments are:
+**Syntax**
+|Code|Function|
+|:---|:---|
+|`out = fread( FILENAME, NITEMS, TYPE, SWAPB )`|Reads specified number (NITEMS) of data in the designated type TYPE from file named FILENAME (a string) and returns the result in a numeric matrix.|
+
+
+
+The meanings of the input parameters are as follows:
 - NITEMS
-Number of objects of type TYPE to read from FILENAME. If NITEMS is inf(), then `fread` will read from FILENAME until end-of-file is reached.
+Number of objects of type TYPE to read from file named FILENAME. If NITEMS is inf(), then `fread` will read from the file named FILENAME until end-of-file is reached.
 
 - TYPE
 'char'
@@ -732,12 +745,6 @@ Number of objects of type TYPE to read from FILENAME. If NITEMS is inf(), then `
 0 Do not swap bytes in a word (default).
 1 Do swap the bytes in each word.
 
-**Syntax**
-|Code|Function|
-|:---|:---|
-|`out = fread( FILENAME, NITEMS, TYPE, SWAPB )`|Reads NITEMS of type TYPE from FILENAME (a string) and returns the result in a numeric matrix.|
-
-
 
 **See also**
 fseek, fwrite, close, open, write
@@ -746,7 +753,7 @@ fseek, fwrite, close, open, write
 
 ## readm 
 **Description**
-Reads ASCII matrices from a file.
+Reads ASCII matrix from a file.
 Used in FDTD and FDE.
 
 
@@ -762,8 +769,8 @@ The file format is generic ASCII. The rows of the matrix are separated by newlin
 **Syntax**
 |Code|Function|
 |:---|:---|
-|`readm( FILENAME, [NR, NC] )`|Reads ASCII matrices from a file.|
-
+|`readm(FILENAME)`|Reads ASCII matrix from the file named FILENAME. The matrix is filled row-wise as the input data is read.|
+|`readm( FILENAME, [NR, NC] )`|Reads ASCII matrix from the file named FILENAME. The matrix whose size is specified by vector [NR, NC] is filled column-wise when reading data.|
 
 **Example**
 
@@ -787,9 +794,9 @@ The above values in a file called 'test' would be read in like:
 `readm` exists to read in data from other programs. In many cases a simple awk script will filter the other programs output into one or more columns of data. `readm` will read the data into the matrix, then the matrix can be reshaped if necessary.
 
 Notes:
-`readm` has no idea how many rows are in the matrix it is reading. This is because `readm` can work with pipes and process output where it gets the matrix as a stream. `readm` uses a heuristic to guess how many rows of the matrix to allocate at one time. A second, optional argument, NROW can be specified if the heuristic does not yield the performance you desire. The heuristic is purposely memory conservative.
+`readm` has no idea how many rows are in the matrix it is reading. This is because `readm` can work with pipes and process output where it gets the matrix as a stream. `readm` uses a heuristic to guess how many rows of the matrix to allocate at one time. A second, optional argument, [NR, NC] can be specified if the heuristic does not yield the performance you desire. The heuristic is purposely memory conservative.
 
- `readm ( 'filename' , NROW )`
+ `readm ( 'filename' , [NR, NC] )`
 
 **See also**
 reshape, getline, open, read, writem
@@ -802,22 +809,19 @@ Used in FDTD and FDE.
 **Syntax**
 |Code|Function|
 |:---|:---|
-|`rfile`|Prints a list of all the files with a '.r' suffix. The list is compiled by searching the directories contained in the environment variable RLAB2__PATH.|
+|`rfile`|Prints a list of all the files with a '.r' suffix. The list is compiled by searching the directories contained in the environment variable RLAB2_PATH.|
 |`rfile name`|Loads an rfile named *name*.|
 
 
-`rfile name` loads the contents of the file denoted by NAME into the workspace. The NAME argument is NOT a string, and does not have to include the '.r' suffix.
+`rfile name` loads the contents of the file denoted by `name` into the workspace. The `name` argument is NOT a string, and does not have to include the '.r' suffix.
 
-Allowable names for rfiles are filenames that start with:
-
-A digit, or a letter (a-z or A-Z).
-and contain:
-digits, letters, and/or -,  _,  .
+Allowable names for rfiles are filenames that start with a digit or a letter (a-z or A-Z) and contain digits, letters, hyphens(-), and underscores(_).
 You may not be able to use all the possible filenames allowed by the host operating system.
+
 If the user's environment does not contain RLAB2_PATH, then the default search-path is used. The default is set at compile time. Normally the default is '.', the current working directory.
 `rfile` is a command, not an expression or statement. Therefore, it must be issued on a line by itself, and cannot occur in the midst of another statement or expression. The `rfile` command cannot be continued across lines (no continuations).
-The command `rfile NAME` can be used more than once. Each time the command is issued the file *NAME.r* is loaded.
-The `rfile` command tries to be friendly. If you give it a string without the '.r' extension, it will automatically add one for you. If you give is a string with the '.r' extension, it will leave it alone.
+The command `rfile name` can be used more than once. Each time the command is issued the file *name.r* is loaded.
+The `rfile` command tries to be friendly. If you give it a string without the '.r' extension, it will automatically add one for you. If you give it a string with the '.r' extension, it will leave it alone.
 The contents of the named file can be any valid RLaB commands or functions. There is no limit to the number of functions that a file can contain. Additionally, a mixture of commands, and function definitions can be included in the same file.
 
 **Example**
@@ -825,7 +829,7 @@ The contents of the named file can be any valid RLaB commands or functions. Ther
 rfile roots.r poly bode 
 ```
 **See also**
-help, load, require 
+load
  
  
 ## readascii
@@ -837,20 +841,22 @@ Used in FDTD and FDE.
 |Code|Function|
 |:---|:---|
 |`out = readascii( FILENAME )`|Reads ASCII data from a file named *FILENAME*.|
-|`out = readascii( FILENAME, LIST )`|Reads ASCII data from a file.|
+|`out = readascii( FILENAME, X )`|Reads ASCII data from a file named *FILENAME* into struct variable *X*.|
 
 
 
 **Example**
+Reads ASCII data from the file named *bunch_of_data_in_a_file*.
 ```msf
 readascii ('bunch_of_data_in_a_file');    
-```    
-The second form of the function allows the data in the file to be read into list variable LIST. The global-symbol-table is untouched (except for LIST).
+```
+
+The second form of the function allows the data in the file to be read into struct variable X. The global-symbol-table is untouched (except for X).
 
 ```msf
  readascii ('bunch_of_data', X); 
 ```       
-The contents of the file bunch_of_data are read and stored in the list variable X. Except for the creation/modification of the variable X, the global-symbol-table is unchanged.
+The contents of the file bunch_of_data are read and stored in the struct variable X. Except for the creation/modification of the variable X, the global-symbol-table is unchanged.
 
 **See also**
 close, getline, read, readm, writem, writeascii
@@ -860,7 +866,7 @@ close, getline, read, readm, writem, writeascii
 Reads designated file in binary mode.
 Used in FDTD and FDE.
 
-**Synatx**
+**Syntax**
 |Code|Function|
 |:---|:---|
 |`readb('file_path');`|Reads designated file in binary mode.|
@@ -874,10 +880,26 @@ readascii
 Reads graph data from designated file.
 Used in FDTD and FDE.
 
-**Synatx**
+**Syntax**
 |Code|Function|
 |:---|:---|
-|`readgraph('file_path');`|Reads graph data from designated file.|
+|`readgraph('file_path');`|Reads data of the unweighted graph from the designated file. The returned matrix A is a sparse matrix which can be seen as the adjacent matrix of the graph. The correct format of the file read by readgraph function is explained below.|
+
+The correct format of the file read by `readgraph` function is as follows:
+```
+num_vertices(number of vertices) num_edge(number of edges)
+adjacent vertex indexes of the first vertex:   a11 a12 … 
+adjacent vertex indexes of the second vertex:  a21 a22 …
+…
+```
+
+The following is a correct instance:
+```
+3 2
+2 3
+1
+1
+```
 
 **See also**
 readb

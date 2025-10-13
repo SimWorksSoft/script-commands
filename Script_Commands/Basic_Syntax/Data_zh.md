@@ -13,7 +13,7 @@ dateCreated: 2024-01-05T08:20:59.367Z
 ---
 
 
-**This section introduces the basic data types and operation rules. We provides various powerful data types and corresponding operations for users to process different kinds of data. Furthermore, some commonly-used mathematical and physical constants and special characters are predefined for convenient usage.**
+**This section introduces the basic data types and operation rules. We provide various powerful data types and corresponding operations for users to process different kinds of data. Furthermore, some commonly-used mathematical and physical constants and special characters are predefined for convenient usage.**
 
 # variable
 
@@ -26,15 +26,15 @@ Used in FDTD and FDE.
 
 |Code|Function|
 |:---|:---|
-|`a = num;`|Creates an integer or floating point number type varaible named *a*, and its value is *num*.|
-|`z = real_part + imag_parti;`|Creates a complex number type varaible named *z*, whose real part is *real_part* and imaginary part is *imag_part*.|
-|`z = real_part + imag_partj;`|Creates a complex number type varaible named *z*, whose real part is *real_part* and imaginary part is *imag_part*.|
+|`a = num;`|Creates an integer or floating point number type variable named *a*, and its value is *num*.|
+|`z = real_part + imag_parti;`|Creates a complex number type variable named *z*, whose real part is *real_part* and imaginary part is *imag_part*.|
+|`z = real_part + imag_partj;`|Creates a complex number type variable named *z*, whose real part is *real_part* and imaginary part is *imag_part*.|
 
 The name of the number type variable can  consist of numbers, letters and underscore characters(_). But the keywords of the script library like `if`, `else`, `elseif`, `while`, `for`, `break`, `continue`, `return`, `function`, `end`, `rfile`, `local`, `global`, `static`, `struct`, `try`, `catch` can not be used.
 
 **Operation**
 There are many operations that can be used on number type data.
-When using these operations to, the precedence levels is important. Precedence levels determine the order in which RLAB evaluates an expression. Within each precedence level, operators have equal precedence and are evaluated from left to right. The precedence rules for RLAB operators are shown in this list, ordered from highest precedence level to lowest precedence level:
+When using these operations, the precedence levels are important. Precedence levels determine the order in which RLAB evaluates an expression. Within each precedence level, operators have equal precedence and are evaluated from left to right. The precedence rules for RLAB operators are shown in this list, ordered from highest precedence level to lowest precedence level:
 |Priority| Description(Character) |
 |:---|:---|
 |1(highest)| parentheses `( )` |
@@ -93,8 +93,8 @@ Used in FDTD and FDE.
 |Code|Function|
 |:---|:---|
 |`m = [a11, a12,... ; a21, a22,...];`|Creates a matrix with designated data. The *,* symbol means the separation of different columns, while the *;* means the separation of different rows. |
-|`m = [m_1, m_2];`|Creates the new matrix by conbining the columns of the existing matrix. |
-|`m = [m_1; m_2];`|Creates the new matrix by conbining the rows of the existing matrix.|
+|`m = [m_1, m_2];`|Creates the new matrix by combining the columns of the existing matrix. |
+|`m = [m_1; m_2];`|Creates the new matrix by combining the rows of the existing matrix.|
 
 **Operation**
 Matrix Arithmetic Operations :
@@ -187,9 +187,9 @@ Used in FDTD and FDE.
 |:---|:---|
 |`s = 'str'`|Uses *' '* to create a string named *s*.|
 |`s = "str"`|Uses *" "* to create a string *s*. When using *" "* , the escape character will function. |
-|`s = s_1 + s_2;`|Combinates the string *s_1* and string *s_2*.|
+|`s = s_1 + s_2;`|Combines the string *s_1* and string *s_2*.|
 
-> When using *" "*, the escape character will functions. The following tabulation list normal escape characters script library supports.
+> When using *" "*, the escape character will functions. The following tabulation lists normal escape characters script library supports.
 
 
 |Character | Description
@@ -218,7 +218,7 @@ s2 = "ccc\"ddd"   # \" escape to "
 
 Result:
 
-```msf
+```
 s =
 aaa
 bbb  
@@ -249,7 +249,7 @@ num2str, str2num
 `struct` uses filed-value pairs to group related data.
 Used in FDTD and FDE.
 
-**Synatx**
+**Syntax**
 |Code|Function|
 |:---|:---|
 |`st= struct();`|Creates an empty struct.|
@@ -258,9 +258,9 @@ Used in FDTD and FDE.
 |`st = struct('field_name_1' , value_1 , ... , 'field_name_n' : value_n);`|Creates a struct having n fields. The nth field is named *'field_name_n'* and its value is *value_n*.|
 |`st = struct(field_name_1 = value_1, ... , field_name_n = value_n);`|Creates a struct having n fields. The nth field is named *'field_name_n'* and its value is *value_n*.|
 |`st = struct(field_name_1 = value_1; ... ; field_name_n = value_n);`|Creates a struct having n fields. The nth field is named *'field_name_n'* and its value is *value_n*.|
-|`v = struct_name.['field_name'];`|Gets the value of field named *'field_name'* in struct named  *'struct_ name'*.| 
-|`v = struct_name.('field_name');`|Gets the value of field name *'field_name'* in struct named  *'struct_ name'*.|
-|`v = struct_name.field_name;`|Gets the value of field name *'field_name'* in struct named *'struct_name'*.| 
+|`v = struct_name.['field_name'];`|Gets the value of field named *'field_name'* in struct named  *'struct_name'*.|
+|`v = struct_name.('field_name');`|Gets the value of field named *'field_name'* in struct named  *'struct_name'*.|
+|`v = struct_name.field_name;`|Gets the value of field named *'field_name'* in struct named *'struct_name'*.|
 |`struct_name.['field_name'] = new_value;`|Changes the value of the field named  *field_name* to *new_value*.|
 |`struct_name.('field_name') = new_value;`|Changes the value of the  field named *field_name* to *new_value*.|
 |`struct_name.field_name = new_value`|Changes the value of the field named *field_name* to *new_value*.|
@@ -291,7 +291,7 @@ matrix, cell
 Removes the specified field of designated struct.
 Used in FDTD and FDE.
 
-**Synatx**
+**Syntax**
 |Code|Function|
 |:---|:---|
 |`rmfield('struct_name', 'field_name');`|Removes the specified field of designated struct.|
@@ -325,13 +325,13 @@ struct
 The `cell` data type can be seen as an array of data containers called cell. Each cell has its index and can store any type of data.
 Used in FDTD and FDE.
 
-**Synatx**
+**Syntax**
 |Code|Function|
 |:---|:---|
-|`cells = cell(r, cl);`|Creates an empty cell with *r* rows and *cl* columns.|
-|`cells = {c_data_11, ... , c_data_1n ; c_data_21, ... , c_data_2n ; ...};`|Creates a cell with designated data. The *,* symbol means the separation of different columns, while the *;* means the separation of different rows.|
-|`celem = cl(m1: m2, n1: n2);`|Gets the set of cells in cell *cl* according to the indices. The cells  cl(m, n) (m = m1, m1+1, ..., m2; n = n1, n1+1, ..., n2 ) of *cl* will be used to construct a new cell array named *celem*.|
-|`celem = cl{m, n}`|Gets the contents of the cell designated by indices in cell *cl*.|
+|`cells = cell(r, cl);`|Creates an empty cell array with *r* rows and *cl* columns.|
+|`cells = {c_data_11, ... , c_data_1n ; c_data_21, ... , c_data_2n ; ...};`|Creates a cell array with designated data. The *,* symbol means the separation of different columns, while the *;* means the separation of different rows.|
+|`celem = cl(m1: m2, n1: n2);`|Gets the set of cells in cell array *cl* according to the indices. The cells  cl(m, n) (m = m1, m1+1, ..., m2; n = n1, n1+1, ..., n2 ) of *cl* will be used to construct a new cell array named *celem*.|
+|`celem = cl{m, n}`|Gets the contents of the cell designated by indices in cell array *cl*.|
 
 
 
@@ -384,11 +384,11 @@ c2 =
 text  
 ```
 
-Eample 4:
+Example 4:
 Use the existing cell array to construct a new cell array.
 
 ```msf
-CellArray = {'first row', 'hello_1', 111; 'second row', 'hello_2', 222; 'thired row', 'hello_3', 333}
+CellArray = {'first row', 'hello_1', 111; 'second row', 'hello_2', 222; 'third row', 'hello_3', 333}
 
 # use CellArray(1, 1), CellArray(1, 2), CellArray(2, 1), CellArray(2, 2) to create a new cell array 
 SubCellArray = CellArray(1: 2, 1: 2)
@@ -430,7 +430,7 @@ a = 2;
 # to see the data type of a 
 printf("the data type of a : %s \n", class(a));  
 
-# to see the data type of a  # to see the data type of as 
+# to see the data type of as
 as = num2str(a);
 printf("the data type of as : %s \n", class(as));  
 
@@ -483,10 +483,10 @@ Used in FDTD and FDE.
 The following two expressions are equivalent:
 
 ```msf
-a = 1+2+3+4;
+a = 1+2+3+4
 
 b = 1+2+3...
-    +4;
+    +4
 ```
 
 Result :
@@ -502,7 +502,7 @@ b =
 
 # dataset
 
-The dataset is composed of data(i.e. attributes of the dataset) and coordinate axes(i.e. parameters of the dataset) defined by `matrixdataset` function, which is mainly used to manage build-in data in the software. 
+The dataset is composed of data(i.e. attributes of the dataset) and coordinate axes(i.e. parameters of the dataset) defined by `matrixdataset` or `unstructureddataset` function, which is mainly used to manage build-in data in the software. 
 
 A basic dataset's format including:
 
@@ -531,7 +531,33 @@ Create a dataset named 'epsr'.
 
 ```msf
 dataset=matrixdataset('epsr');
+```
 
+**See also**
+dataset, addparameter, addattribute
+
+## unstructureddataset
+**Description**
+Creates an empty unstructured dataset.
+Unstructured dataset represents a dataset associated with arbitrary x/y/z coordinate in space, along with a connectivity matrix that defines how these points are connected to form lines, surfaces, or volumes. Like matrixdataset, unstructured datasets can be parameterized, and can contain an arbitrary number of attributes and parameters.
+Used in FDTD and FDE.
+
+
+**Syntax**
+|Code| Function|
+|:---|:---|
+|`unstructureddataset(x,y,z,C);`|Creates an empty unstructured dataset associated with the coordinates x/y/z and a connectivity matrix to connect them. Arguments 'x', 'y' and 'z' must be the same length; equivalent to the total number of points. The argument 'C' should be a matrix of integers where the number of rows is equal to the number of shapes in the mesh, the number of columns should be 2 (line segments), 3 (triangles) or 4 (tetrahedra), and values should be integers.|
+|`unstructureddataset("dts_name",x,y,z,C);`|Create an empty unstructured dataset named *'dst_name'* associated with the coordinates x/y/z and a connectivity matrix to connect them.|
+
+**Example**
+Create an unstructured dataset named 'data'.
+
+```msf
+x = [ 0; 1; 0; 0];
+y = [ 0; 0; 1; 0];
+z = [ 0; 0; 0; 1];
+C = [ 1, 2, 3, 4];
+dataset = unstructureddataset('data',x,y,z,C);
 ```
 
 **See also**
@@ -539,14 +565,14 @@ dataset, addparameter, addattribute
 
 ## addparameter
 **Description**
-Add the specific parameters to the defined dataset.
+Adds the specific parameters to the defined dataset.
 Used in FDTD and FDE.
 
 **Syntax**
 |Code| Function|
 |:---|:---|
 |`R.addparameter('p_name', p);`|Adds the parameter named *'p_name'*  to dataset *R*, whose value is *p*.|
-|`R.addparameter('p1_name', p1, 'p2_name', p2, ...);`|Adds interdependent parameters (*p1_name*, *p2_name*, ... to the dataset *R*. |
+|`R.addparameter('p1_name', p1, 'p2_name', p2, ...);`|Adds interdependent parameters *p1_name*, *p2_name*, ... to the dataset *R*. |
 
 **Example**
 ```msf
@@ -560,7 +586,7 @@ dataset.addparameter('y', 1:y);
 dataset.addparameter('p1', p1, 'p2', p2);
 ```
 **See also**
-addattribute
+dataset, matrixdataset, unstructureddataset, addattribute
 
 
 ## addattribute
@@ -574,25 +600,57 @@ Used in FDTD and FDE.
 |:---|:---|
 |`R.addattribute("a_name",a);`|Adds the scalar attribute named *a_name* whose value is  *a* to the dataset *R*.|
 |`R.addattribute("a_name",ax,ay,az);`|Adds the vector attribute named *a_name* whose value is *a_vector* to the existing dataset *R*. The components of the vector are *ax*, *ay* and *az*. |
+|`R.addattribute("a_name", [data]);`|Adds the attribute "a_name" to the unstructured dataset R.|
+
+where `[data]` can be in one of the forms below:
+- vertex_scalar_attribute[npts; nparameter_1; nparameter_2; ...; 1]
+- vertex_vector_attribute[npts; nparameter_1; nparameter_2; ...; 3]
+
+npts is the number of vertices, the length of geometric parameters 'x', 'y', 'z'.
 
 **Example**
 ```msf
+### generate a matrix dataset
 x = 3;
 y = 4;
 z = 5;
 p1 = 1;
 p2 = 2;
-dataset = matrixdataset('test_dataset');
-dataset.addparameter('x', 1:x);
-dataset.addparameter('y', 1:y);
-dataset.addparameter('z', 1:z);
-dataset.addparameter('p1', p1, 'p2', p2);
-dataset.addattribute('attr_scalar', rand(x,y,z));
-dataset.addattribute('attr_vector', rand(x,y,z), rand(x,y,z), rand(x,y,z));
+matrixdata = matrixdataset('test_dataset');
+matrixdata.addparameter('x', 1:x);
+matrixdata.addparameter('y', 1:y);
+matrixdata.addparameter('z', 1:z);
+matrixdata.addparameter('p1', p1, 'p2', p2);
+matrixdata.addattribute('attr_scalar', rand(x,y,z));
+matrixdata.addattribute('attr_vector', rand(x,y,z), rand(x,y,z), rand(x,y,z));
+visualize(matrixdata);
+
+### generate an unstructured dataset
+# Coordinates
+ x = [ 0; 1; 0; 0];
+ y = [ 0; 0; 1; 0];
+ z = [ 0; 0; 0; 1];
+#point A; B; C; D;
+
+# Attribute
+Attribute = [1;2;3;4];
+
+# Connectivity matrix
+C = [1,2,3,4];#The four points of ABCD are connected to form a tetrahedron
+
+unstructureddata = unstructureddataset("dataset",x,y,z,C);
+unstructureddata.addparameter("Parameter",1);
+unstructureddata.addattribute("Attribute",Attribute);
+visualize(unstructureddata);
 ```
 
+Results:
+![matrixdataset](https://simworksofficial-files.oss-cn-beijing.aliyuncs.com/mdfile/resources/img/Script_Commands_addattribute_matrixdataset.png)
+
+![unstructureddataset](https://simworksofficial-files.oss-cn-beijing.aliyuncs.com/mdfile/resources/img/Script_Commands_addattribute_unstructureddataset.png)
+
 **See also**
-addparameter
+dataset, matrixdataset, unstructureddataset, addparameter
 
 
 ## members
@@ -671,7 +729,7 @@ members
 
 ## setparameterunit
 **Description**
-Sets the unit to the defined parameter which means that variable is physically meaningful in the 'SI’ system. The setting is "number" by default.
+Sets the unit type to the defined parameter which means that variable is physically meaningful in the 'SI’ system. The setting is "number" by default.
 *unit_type* includes: *'number'*, *'length'*, *'time'*, *'frequency'*.
 Used in FDTD and FDE.
 
@@ -679,7 +737,7 @@ Used in FDTD and FDE.
 **Syntax**
 |Code| Description|
 |:---|:---|
-|`R.setparameterunit('p_name', 'unit_type')`|Sets unit type to the parameter named *'p_name'*.|
+|`R.setparameterunit('p_name', 'unit_type')`|Sets the unit type to the parameter named *'p_name'*.|
 
 **Example**
 ```msf
@@ -698,7 +756,7 @@ dataset.addattribute('attr', rand(x,y));
 ## global
 **Description**
 Declares variables are global variables.
-The `global` keyword allows you to modify variables outside the scope of a function. It is used to create a global variable and change it in a function
+The `global` keyword allows you to modify variables outside the scope of a function. It is usually used to create a global variable inside a function and change it outside the function.
 Used in FDTD and FDE.
 
 
@@ -737,7 +795,7 @@ var1
 
 ## local 
 **Description**
-Declares variables are local variable of the function.
+Declares variables are local variables of the function.
 This keyword can only be used in a function to declare a variable as a local variable of a function. Although by default, variables within functions are local.
 Used in FDTD and FDE.
 
@@ -791,7 +849,7 @@ global, local
 ## static variable
 **Description**
 Defines a variable whose scope is the current file.
-This keyword is used to define static variables, which only act in the current file. It can even be used inside functions, but it cannot be accessed outside the current file.
+This keyword is used to define static variables, which only act in the current file. The static variables can even be used inside functions, but they cannot be accessed outside the current file.
 Used in FDTD and FDE.
 
 
@@ -805,7 +863,7 @@ Used in FDTD and FDE.
 **Example**
 
 ```msf
-    static(a);            # define static variables
+    static(a);            # define a static variable
     function fun1()
         printf("a:%s\n",a);
         a='fun1_changed'; # changed in fun1
@@ -862,7 +920,7 @@ Used in FDTD and FDE.
 |inf| infinity |
 |nan| Not a Number  |
 |-0 | negative zero |
-|\# | Coments line  |
-|%% | Create a illegal variable's name |
+|\# | Comment line  |
+|%% | Create an illegal variable's name |
 |$$ | A struct contains all global variables and functions |
 

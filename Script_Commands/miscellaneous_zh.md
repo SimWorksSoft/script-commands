@@ -19,13 +19,13 @@ dateCreated: 2022-06-14T08:40:38.464Z
 # operation menu
 Right-click to show the operation menu in the script workspace.
 
-![workspace_example_operation_menu.png](https://simworksofficial-files.oss-cn-beijing.aliyuncs.com/mdfile/resources/img/workspace_example_operation_menu.png)
+![ScriptWorkspace_BkgMenu](https://simworksofficial-files.oss-cn-beijing.aliyuncs.com/mdfile/resources/img/ScriptWorkspace_BkgMenu_250424_5.png)
 
 
 There are many operations that can be executed on variables in the workspace.
 
 - print: print the selected variable in *Script Console* .
-- visualizer data: visualizing the selected variable.
+- Data Visualizer: visualizing the selected variable.
 - plot: plot the selected variable.
 - Save as..: save the selected variable in a `.mdf` file.
 - Open / Edit: Open or edit the selected variable.
@@ -36,29 +36,29 @@ There are many operations that can be executed on variables in the workspace.
 The following part is  the introduction of some important operations in the operation menu:
 ## print
 Right-click to show the operation menu, then left-click the print option.
-![workspace_example_print.png](https://simworksofficial-files.oss-cn-beijing.aliyuncs.com/mdfile/resources/img/workspace_example_print.png)
+![ScriptWorkspace_Print](https://simworksofficial-files.oss-cn-beijing.aliyuncs.com/mdfile/resources/img/ScriptWorkspace_Print_250424_5.png)
 
 Result:
 
-![workspace_example_print_display.png](https://simworksofficial-files.oss-cn-beijing.aliyuncs.com/mdfile/resources/img/workspace_example_print_display.png)
+![ScriptWorkspace_Print_Result](https://simworksofficial-files.oss-cn-beijing.aliyuncs.com/mdfile/resources/img/ScriptWorkspace_Print_Result_250424_5.png)
 
-## visualizer data
-Right-click to show the operation menu, then left-click the visualizer data option.
-![workspace_example_visualizer_data.png](https://simworksofficial-files.oss-cn-beijing.aliyuncs.com/mdfile/resources/img/workspace_example_visualizer_data.png)
+## Data Visualizer
+Right-click to show the operation menu, then left-click the Data Visualizer option.
+![ScriptWorkspace_DataVisualizer](https://simworksofficial-files.oss-cn-beijing.aliyuncs.com/mdfile/resources/img/ScriptWorkspace_DataVisualizer_250424_5.png)
 
 Result:
 
-![workspace_example_visualizer_data_display.png](https://simworksofficial-files.oss-cn-beijing.aliyuncs.com/mdfile/resources/img/workspace_example_visualizer_data_display.png)
+![ScriptWorkspace_DataVisualizer_Result](https://simworksofficial-files.oss-cn-beijing.aliyuncs.com/mdfile/resources/img/ScriptWorkspace_DataVisualizer_Result_250424_5.png)
 
 
 
 ## Open / Edit
 Right-click to show the operation menu, then left-click the Open / Edit option.
-![](https://simworksofficial-files.oss-cn-beijing.aliyuncs.com/mdfile/resources/img/workspace_example_open_edit.png)
+![ScriptWorkspace_OpenEdit](https://simworksofficial-files.oss-cn-beijing.aliyuncs.com/mdfile/resources/img/ScriptWorkspace_OpenEdit_250424_5.png)
 
 Result:
 
-![workspace_example_open_edit_display.png](https://simworksofficial-files.oss-cn-beijing.aliyuncs.com/mdfile/resources/img/workspace_example_open_edit_display.png)
+![ScriptWorkspace_OpenEdit_Result](https://simworksofficial-files.oss-cn-beijing.aliyuncs.com/mdfile/resources/img/ScriptWorkspace_OpenEdit_Result_250424_5.png)
 
 
 

@@ -84,7 +84,7 @@ y(:,:,1,2) = [13,14,15;16,17,18];
 y(:,:,2,2) = [19,20,21;22,23,24];
 
 
-# integrate first and third dimension
+# integrate first and third dimensions
 r = integrate(y, [1,3], [1,2], [1,4])
 ```
 
@@ -308,7 +308,7 @@ Used in FDTD and FDE.
 |`f = fftw(t, zero_pad);`|Returns the angular frequency vector of time vector *t*. The parameter *zeros_pad* determines the number of elements in the frequency vector.|
 
 *Note:*
-When the length of time vector is larger than zero_pad, zero_pad is exchanged as a new number, also an power of 2, up to the next power of 2 longer than the length of time; when the interval of the time is not an equal-radio data, also could calculate.
+When the length of time vector is larger than zero_pad, zero_pad is exchanged as a new number, also a power of 2, up to the next power of 2 longer than the length of time; when the interval of the time is not an equal-radio data, also could calculate.
 
 **Example**
 
@@ -356,7 +356,7 @@ Used in FDTD and FDE.
 |Code|Function|
 |:---|:---|
 |`z = czt(signal, pos, pos_trans, type );` |If *type* is 1, computes the 1D chirped z-transform of the defined signal *signal* . The input signal *signal* is a function of the independent variable *pos* ( usually time ) and *pos_trans* is the transform domain positions ( usually angular frequency in frequency domain ). If  *type* is not 1, iczt ( inverse chirped z-transform ) will be operated.|
-|`z = czt(signal, xpos, ypos, xpos_trans, ypos_trans, type);` |If *type* is 1, computes the 2D chirped z-transform of the defined signal *signal* . The input signal *signal* is a function of the independent variables *xpos* and *ypos*. And *xpos_trans*, *ypos_trans* are the transform domain postions. If  *type* is not 1, iczt ( inverse chirped z-transform ) will be operated.|
+|`z = czt(signal, xpos, ypos, xpos_trans, ypos_trans, type);` |If *type* is 1, computes the 2D chirped z-transform of the defined signal *signal* . The input signal *signal* is a function of the independent variables *xpos* and *ypos*. And *xpos_trans*, *ypos_trans* are the transform domain positions. If  *type* is not 1, iczt ( inverse chirped z-transform ) will be operated.|
 
 
 **Example**
@@ -419,7 +419,7 @@ Used in FDTD and FDE.
 `filter` is an implementation of the standard difference equation:
 $$y[n] = b(1)*x[n] + b(2)*x[n-1] + ... + b(z+1)*x[n-z] \\ - a(2)*y[n-1] - a(p+1)*y[n-p]$$
 
-The `filter` is implemented using a method described as a 'Direct Form II Transposed' filter. More for information see Chapter 6 of 'Discrete-Time Signal Processing' by Oppenheim and Schafer.
+The `filter` is implemented using a method described as a 'Direct Form II Transposed' filter. For more information see Chapter 6 of 'Discrete-Time Signal Processing' by Oppenheim and Schafer.
 
 **Syntax**
 |Code| Function|
@@ -438,7 +438,7 @@ The denominator coefficients, or the poles of the system transfer function. The 
 A vector of the `filter` inputs.
 - Zi
 [Optional] The initial delays of the filter.
-The `filter` outputs are in a list with element names:
+The `filter` outputs are in a struct with element names:
 - y
 The filter output. y is a vector of the same dimension as X.
 - zf

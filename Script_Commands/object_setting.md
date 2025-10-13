@@ -142,7 +142,7 @@ Used in FDTD and FDE.
 |Code|Function |
 |:---|:---|
 |`addcircle;`|Adds a circle structure to the simulation environment according to the current view plane in the composite viewer window.|
-|`addcircle(x_pos, y_pos, z_pos)`|Adds a circle structure to the simulation environment with designated center position *x_pos*, *y_pos*, *z_pos*(unit: m) according to the current view plane in the composite viewer window.|
+|`addcircle(x_pos, y_pos, z_pos);`|Adds a circle structure to the simulation environment with designated center position *x_pos*, *y_pos*, *z_pos*(unit: m) according to the current view plane in the composite viewer window.|
 
 **Example**
 Create a circle structure, then set its radius to 1 um.
@@ -238,7 +238,7 @@ Used in FDTD and FDE.
 |Code|Function|
 |:---|:---|
 |`addsphere;`|Adds a sphere structure to the simulation environment.|
-
+|`addsphere(x_pos, y_pos, z_pos);`|Adds a sphere structure with designated center position *x_pos*, *y_pos*, *z_pos*(unit: m) to the simulation environment according to the current view plane in the composite viewer window.|
 
 **Example**
 Example 1: Create a sphere, then set its radius (m).
@@ -293,7 +293,7 @@ set, addcone
 
 ## addcone
 **Description**
-Adds a cone structure to the simulation according the current view plane in the composite viewer window.
+Adds a cone structure to the simulation according to the current view plane in the composite viewer window.
 For example, if the current view plane is ZX plane, `addcone` function will constitute a cone whose bottom is perpendicular to Y axis.
 Used in FDTD and FDE.
 
@@ -334,6 +334,7 @@ Used in FDTD and FDE.
 |Code|Function |
 |:---|:---|
 |`addlinearwaveguide;`|Adds a linear waveguide to the simulation environment according to the current view plane in the composite viewer window. |
+|`addlinearwaveguide(x_pos, y_pos, z_pos);`|Adds a linear waveguide to the simulation environment with designated center position *x_pos*, *y_pos*, *z_pos*(unit: m) according to the current view plane in the composite viewer window.|
 
 **See also**
 addarcwaveguide
@@ -349,6 +350,7 @@ Used in FDTD and FDE.
 |Code|Function |
 |:---|:---|
 |`addarcwaveguide;`|Adds a curved waveguide to the simulation environment according to the current view plane in the composite viewer window.|
+|`addarcwaveguide(x_pos, y_pos, z_pos);`|Adds a curved waveguide to the simulation environment with designated center position *x_pos*, *y_pos*, *z_pos*(unit: m) according to the current view plane in the composite viewer window.|
 
 
 **See also**
@@ -365,6 +367,7 @@ Used in FDTD and FDE.
 |Code|Function |
 |:---|:---|
 |`addlineartaper;`|Adds a linear taper structure to the simulation environment according to the current view plane in the composite viewer window.|
+|`addlineartaper(x_pos, y_pos, z_pos);`|Adds a linear taper structure to the simulation environment with designated center position *x_pos*, *y_pos*, *z_pos*(unit: m) according to the current view plane in the composite viewer window.|
 
 
 **See also**
@@ -380,6 +383,7 @@ Used in FDTD and FDE.
 |Code|Function |
 |:---|:---|
 |`addsidewalllinear;`|Adds a linear structure with two slanted sidewalls to the simulation environment according to the current view plane in the composite viewer window.|
+|`addsidewalllinear(x_pos, y_pos, z_pos);`|Adds a linear structure with two slanted sidewalls to the simulation environment according to the current view plane in the composite viewer window and specifies the center positions *x_pos*, *y_pos*, *z_pos*(unit: m).|
 
 
 **See also**
@@ -396,6 +400,7 @@ Used in FDTD and FDE.
 |Code|Function |
 |:---|:---|
 |`addsidewallarc;`|Adds a partial ring with two slanted and curved sidewalls to the simulation environment according to the current view plane in the composite viewer window.|
+|`addsidewallarc(x_pos, y_pos, z_pos);`|Adds a partial ring with two slanted and curved sidewalls to the simulation environment according to the current view plane in the composite viewer window and specifies the center position *x_pos*, *y_pos*, *z_pos*(unit: m).|
 
 
 **See also**
@@ -410,6 +415,8 @@ Used in FDTD and FDE.
 |Code|Function|
 |:---|:---|
 |`addsidewallbezier;`|Adds a curved waveguide with sidewalls curved by specific Bezier to the simulation environment according to the current view plane in the composite viewer window.|
+|`addsidewallbezier(x_pos, y_pos, z_pos);`|Adds a curved waveguide with sidewalls curved by specific Bezier to the simulation environment according to the current view plane in the composite viewer window and specifies the center position *x_pos*, *y_pos*, *z_pos*(unit: m).|
+
 
 
 **See also**
@@ -425,7 +432,7 @@ Used in FDTD and FDE.
 |Code|Function|
 |:---|:---|
 |`addequation;`|Adds a structure determined by specific equation to the simulation environment.|
-|`addequation(x_pos,y_pos,z_pos);`|Adds a structure determined by specific equation with designated center position *x_pos*, *y_pos*, *z_pos*(unit: m) to the simulation environment.|
+|`addequation(x_pos, y_pos, z_pos);`|Adds a structure determined by specific equation with designated center position *x_pos*, *y_pos*, *z_pos*(unit: m) to the simulation environment.|
 
 **See also**
 addrect
@@ -872,6 +879,25 @@ Used in FDTD.
 **See also**
 addpowermonitor, addfieldmonitor, addtimemonitor 
 
+## updateindexmonitor
+**Description**
+Updates the data of an index monitor.
+Used in FDTD.
+
+**Syntax**
+|Code|Function|
+|:---|:---|
+|`updateindexmonitor('monitor_name')`|Updates the data of an index monitor. `updateindexmonitor` provides the preview data that may not be exactly the same as the data returned by the simulation run—just like what happens when you click "OK" in the monitor. `updateindexmonitor` only allows one parameter.|
+
+**Example**
+Update the data of two index monitors.
+
+```msf
+updateindexmonitor('FDTD::Index');  #monitor_name: Index
+updateindexmonitor('FDTD::Analysis Group::Index_1');  # Monitor in Analysis Group
+```
+
+
 ## addmonitor2dataset
 **Description**
 Adds the field data *E, H* in the designated monitor to a dataset as the function of position and wavelength.
@@ -1207,10 +1233,18 @@ Used in FDTD and FDE.
 |Code	|Function|
 |:---|:---|
 |`select('object_name');`|Selects the target object named *'object_name'* .|
-|`select('solver_name::object_name');`|Selects the target object named *'object_name'*  in solver named *solver_name* .|
-|`select('group_name::object_name');`|Selects the target object named *'object_name'*  in group, structure group or analysis group named *group_name* .|
+|`select('param1','param2');`|The valid values of *param1* are limited to two options: *name* or *type*. When *param1* is omitted, it defaults to *name*. "*param1* = *type*" is designed to manipulate multiple objects in one selection according to the objects' type. The values of *param2* depend on *param1*, as detailed below:|
 
-**Example**
+- If *param1* is set to *name*, *param2* can be:
+    - object_name (e.g., a direct name of the target object)
+    - solver_name::object_name (e.g., combining a solver's name and the object's name, separated by "\:\:")
+    - group_name::object_name (e.g., combining a group's name and the object's name, separated by "\:\:")
+- If *param1* is set to *type*, *param2* can be:
+    - object_type (e.g., a direct type of the target object)
+    - solver_type::object_type (e.g., combining a solver's type and the object's type, separated by "\:\:")
+    - group_type::object_name (e.g., combining a group's type and the object's name, separated by "\:\:")
+
+**Example1**
 Select the target object named *'Index_Monitor'*  in FDTD solver.
 ```msf
 # add FDTD and index monitor 
@@ -1223,9 +1257,48 @@ select('FDTD::Index_Monitor');
 
 ```
 
+**Example2**
+Create two objects and put them in a group.
+```msf
+deleteall;
+addfdtd;      #name: FDTD, type: FDTD
+adddipole;    #name: Dipole, type: Dipole
+adddipole;    #name: Dipole_1, type: Dipole
+
+select('type','FDTD::Dipole');
+addtogroup('Dipole_Group');   #two dipoles will be moved in one selection.
+```
+
 
 **See also**
-selectall
+selectall, selectpartial
+
+## selectpartial
+**Description**
+Selects all the objects with a common partial name.
+Used in FDTD and FDE.
+
+**Syntax**
+|Code	|Function|
+|:---|:---|
+|`selectpartial('partialname');`|Selects any objects where '*partialname*' can be found in the object name provided the object is not in a group or solver.|
+|`selectpartial('slovername::partialname');`|Selects any objects where '*partialname*' can be found in the object name provided the object is in a solver.|
+|`selectpartial('partialgroupname::partialname');`|Selects any objects where '*partialgroupname*' can be found in the group name and '*partialname*' can be found in the object name.|
+
+**Example**
+Select all 2D structures and move them to a new group
+```msf
+addrect;      #name: Rectangle
+add2drect;    #name: 2D Rectangle
+add2dpoly;    #name: 2D Polygon
+selectpartial('2D');        #select structures whose names include "2D"
+addtogroup('NewGroup');     #group name: NewGroup
+selectpartial('New::2D');   #the group name also can be partial
+copy();   #both 2D Rectangle and 2D Polygon will be copied
+```
+
+**see also**
+select, selecall
 
 ## selectall
 **Description**
@@ -1238,7 +1311,7 @@ Used in FDTD and FDE.
 |`selectall;`|Selects all the objects in the simulation environment.|
 
 **See also**
-select
+select, selectpartial
 
 ## unselectall
 **Description**

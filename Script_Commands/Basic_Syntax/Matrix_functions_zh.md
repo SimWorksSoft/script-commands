@@ -24,7 +24,7 @@ Used in FDTD and FDE.
 
 
 **Syntax**
-|Code|Fucntion|
+|Code|Function|
 |:---|:---|
 |`out = inv(P);`|Computes the inverse of a matrix *P*.|
 
@@ -357,13 +357,13 @@ sparse, spconvert
 Constructs diagonal matrix using input argument.
 Used in FDTD and FDE.
 
-If the 1st argument A is a 1xN matrix, construct a diagonal matrix from the input. Optionally if K (scalar) is specified then create a matrix with the vector as the Kth diagonal.
+If the 1st argument A is a 1xN matrix, constructs a diagonal matrix from the input. Optionally if K (scalar) is specified then create a matrix with the vector as the Kth diagonal.
 
 >K = 0, the elements of input are arranged on the main diagonal.
 >K < 0, the elements of input are arranged below the main diagonal.
 >K > 0, the elements of input are arranged above the main diagonal.
 
-If the 1st argument is a MxN matrix, construct a 1xN matrix from the diagonal elements of the input matrix. Optionally if K is specified return the vector from the Kth diagonal of the input matrix.
+If the 1st argument is a MxN matrix, constructs a 1xN matrix from the diagonal elements of the input matrix. Optionally if K is specified return the vector from the Kth diagonal of the input matrix.
 
 >K = 0, the elements of the newly constructed vector are from the main diagonal of the input.
 >K < 0, the elements of the newly constructed vector are from the diagonal below the main diagonal of the input.
@@ -432,9 +432,9 @@ The `factor` function computes the LU factorization of the input matrix A. `fact
 |Code| Function|
 |:---|:---|
 |`[LU, Pvt, Rcond] = factor(A);`|If A is a general matrix, returns a matrix *LU* containing the LU factors, a vector *Pvt* containing the pivot indices, and the inverse of the condition estimate *Rcond*.|
-|`[Ldl, Pvt, Rcond] = factor(A);`|If A is a symmetric matrix, returns a matrix *Ldl* containing the block diagonal matrix *D*, and the multipliers used to obtain *L*. The *Pvt* and *Rcond* are same as above.|
+|`[Ldl, Pvt, Rcond] = factor(A);`|If A is a symmetric matrix, returns a matrix *Ldl* containing the block diagonal matrix *D*, and the multipliers used to obtain *L*. The *Pvt* and *Rcond* are the same as above.|
 
-The user can overide `factor`'s choice of solution type with the optional argument 'TYPE'.
+The user can override `factor`'s choice of solution type with the optional argument 'TYPE'.
 |Code| Function|
 |:---|:---|
 |`[LU, Pvt, Rcond]=factor(A, 'TYPE');`|'TYPE' can be 'g' or 'G', means the general solution is used.
@@ -452,7 +452,7 @@ A = [10, -7, 0;
 
 [LU, Pvt, RCond] = factor(A);
 [L, U, P] = lu(A);
-# LU is combined form matrix L and matrix U.
+# LU is combined from matrix L and matrix U.
 L
 U
 LU
@@ -481,12 +481,12 @@ LU =
 Singular Value Decomposition.
 Used in FDTD and FDE.
 
-The output is a list containing the three afore-mentioned objects (u, sigma, v).  Various forms of the right and left singular vectors can be computed, depending upon the value of the second, optional, string argument. 
+The output is a struct containing the three afore-mentioned objects (u, sigma, v).  Various forms of the right and left singular vectors can be computed, depending upon the value of the second, optional, string argument. 
 
 **Syntax**
 |Code| Function|
 |:---|:---|
-|`[u,sigma,v]=svd(A)`|Computes the singular values of the input matrix A, as well as the right and left singular vectors in various forms. Where, A = U * sigma* V'.|
+|`[u,sigma,v]=svd(A)`|Computes the singular values of the input matrix A, along with the right and left singular vectors in their minimal form. Where, A = U * sigma* V'.|
 |`[u, sigma, v]=svd(A, 'TYPE');`|Computes the singular vectors in designated form. 'TYPE' can be *'S'* (a minimal version of U, and V are returned, this is the default), *'A'* (the full U, and V are returned) or *'N'* (U and V are not computed, empty U and V are returned).|
 
 **Example**
@@ -652,7 +652,7 @@ Schur decomposition.
 Used in FDTD and FDE.
 
 The `schur` function returns t and z, such that:
-$$A = z * t * z$$
+$$A = z * t * z'$$
 
 **Syntax**
 |Code|Function|
@@ -768,7 +768,7 @@ val =
 
 ## eig
 **Description**
-Computes the eigenvectors and values of the input matrix.
+Computes the eigenvectors and eigenvalues of the input matrix.
 Used in FDTD and FDE.
 
 **Syntax**
@@ -781,7 +781,7 @@ Used in FDTD and FDE.
 
 **Example**
 
-The generalized eigenvalue problem arises quite regularly in structures. From the second order differential equations describing a lumped mass system arise $M$ and $K$, coefficient matrices representing the mass and stiffness of the various physical degress of freedom. The equations are formulated as follows:
+The generalized eigenvalue problem arises quite regularly in structures. From the second order differential equations describing a lumped mass system arise $M$ and $K$, coefficient matrices representing the mass and stiffness of the various physical degrees of freedom. The equations are formulated as follows:
 
 $$ M * dx^2/dt^2 + K * x = F $$
           
@@ -812,7 +812,7 @@ val =
     2.82842712
 ```
 
-Show the oroperties of the solution.
+Show the properties of the solution.
 ```msf
           
 # Properties of the solution
@@ -852,13 +852,13 @@ The input parameter *'TYPE'* that can be used:
 Returns max(abs( A )).
 
 - 1, O or o
-Returns the 1-norm (default), the largest column `sum(max(sum(abs(A))))`.
+Returns the 1-norm (default), the largest column `max(sum(abs(A)))`.
 
 - 2
 Returns the matrix 2-norm (largest singular value).
 
 - I or i
-Returns the infinity-norm, the largest row `sum(max(sum(abs(A'))))`.
+Returns the infinity-norm, the largest row `max(sum(abs(A')))`.
 
 - F, f, E or e
 Returns the Frobenius norm.
@@ -925,7 +925,7 @@ This function is a cover-function for the two builtin functions `mnorm()`, which
 |Code| Function|
 |:---|:---|
 |`N=norm(A);`|Computes the 2-norm of the input vector.|
-|`N=norm(A,B);`|Computes the matrix or vector norm. The second input parameter *B* allows the user to specify the desired type of matrix norm with a number argument. The details about *B* can be seen below.|
+|`N=norm(A,B);`|Computes the matrix or vector norm. The second input parameter *B* allows the user to specify the desired type of matrix norm. The details about *B* can be seen below.|
 
 If A is a matrix, valid B arguments are:
 - 1
@@ -981,13 +981,13 @@ Result 1:
 n =
     6.33730681
 n =
-    -900126816
+             9
 n =
     6.33730681
 n =
-    -937878128
+             6
 n =
-             0
+    2.23606798
 ```
 
 
@@ -1101,7 +1101,7 @@ Used in FDTD and FDE.
 **Syntax**
 |Code| Function|
 |:---|:---|
-|`p = poly(V);`| When *V* is a vector, returns the coefficients of a polynomial, where the root of the polynomial is the element of *V*.|
+|`p = poly(V);`| When *V* is a vector, returns the coefficients of a polynomial, where each root of the polynomial is an element of *V*.|
 |`p = poly(A);`|When *A* is a n-order square matrix, returns N + 1 coefficients of characteristic polynomial of the matrix, $det(λI -A)$.|
 
 **Example**
@@ -1160,12 +1160,11 @@ To solve the special form of the Lyapunov equation:
 $$ A*X + X*A' = -C $$
   
 
-Skip the second argument when using `lyap (A,,C)`.
+We can use this method: `lyap (A,A',C)`.
 **Syntax**
 |Code|Fucntion|
 |:---|:---|
 |`out = lyap ( A , B , C ); `|Solves the general form of the Lyapunov (Sylvester) equation.|
-|`out = lyap ( A , , C );`|Solves the special form of the Lyapunov equation.|
 
 **See also**
 schur, sylv  
@@ -1187,7 +1186,7 @@ The 1st argument to `backsub` is a struct converted from the result of `factor(A
 **Syntax**
 |Code| Function|
 |:---|:---|
-|`out = backsub( LIST, B );`|Returns the solution of $Ax = B$ by backsubstitution. The input *A_F* is a struct converted from the output of `factor(A)`. If A is a general matrix, the input struct must have three fields named "lu", "pvt", and "rcond". The value of fields "lu", "pvt", and "rcond" can be generated by `factor` function. If A is a symmetric matrix, the input struct must have three fields named "ldl", "pvt", and "rcond". The value of fields "ldl", "pvt", and "rcond" can be generated by `factor` function.|
+|`out = backsub( A_F, B );`|Returns the solution of $Ax = B$ by backsubstitution. The input *A_F* is a struct converted from the output of `factor(A)`. If A is a general matrix, the input struct must have three fields named "lu", "pvt", and "rcond". The value of fields "lu", "pvt", and "rcond" can be generated by `factor` function. If A is a symmetric matrix, the input struct must have three fields named "ldl", "pvt", and "rcond". The value of fields "ldl", "pvt", and "rcond" can be generated by `factor` function.|
 
 
 **Example**

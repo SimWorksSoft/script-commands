@@ -26,7 +26,7 @@ Used in FDTD.
 |Code|Function|
 |:---|:---|
 |`addfdtd;`|Adds a FDTD solver into the current simulation project.|
-|`addfdtd(x_pos, y_pos, z_pos);`|Adds a FDTD solver at the designated position x_position( *x_pos* m), y_position( *y_pos* m), z_position( *z_pos* m) into the current simulation project.|
+|`addfdtd(x_pos, y_pos, z_pos);`|Adds a FDTD solver into the current simulation project. The *x_pos*, *y_pos*, *z_pos*(unit: m) are the center position of the FDTD simualtion region.|
 
 
 **See also**
@@ -41,7 +41,7 @@ Used in FDE.
 |Code|Function|
 |:---|:---|
 |`addfde;`|Adds a FDE solver into the current simulation project.|
-|`addfde(x_pos, y_pos, z_pos);`|Adds a FDE solver at the designated position x_position( *x_pos* m), y_position( *y_pos* m), z_position( *z_pos* m) into the current simulation project.|
+|`addfde(x_pos, y_pos, z_pos);`|Adds a FDE solver into the current simulation project. The *x_pos*, *y_pos*, *z_pos*(unit: m) are the center position of the FDE simulation region.|
 
 
 **See also**
@@ -57,7 +57,7 @@ Used in FDFD.
 |Code|Function|
 |:---|:---|
 |`addfdfd;`|Adds a FDFD solver into the current simulation project.|
-|`addfdfd(x_pos, y_pos, z_pos);`|Adds a FDFD solver at the designated position x_position( *x_pos* m), y_position( *y_pos* m), z_position( *z_pos* m) into the current simulation project.|
+|`addfdfd(x_pos, y_pos, z_pos);`|Adds a FDFD solver into the current simulation project. The *x_pos*, *y_pos*, *z_pos*(unit: m) are the center position of the FDFD simulation region.|
 
 
 
@@ -74,7 +74,7 @@ Used in FDTD and FDE.
 |Code|Function|
 |:---|:---|
 |`addmesh;`|Adds a mesh into the current simulation project.|
-|`addmesh(x_pos, y_pos, z_pos);`|Adds a mesh at the designated position x_position( *x_pos* m), y_position( *y_pos* m), z_position( *z_pos* m) into the current simulation project.|
+|`addmesh(x_pos, y_pos, z_pos);`|Adds a mesh into the current simulation project. The *x_pos*, *y_pos*, *z_pos*(unit: m) are the center position of the mesh.|
 
 
 **See also**
@@ -93,10 +93,17 @@ Used in FDTD and FDFD.
 |`run;`|Runs the current simulation.|
 
 **Example**
-Run the current simulation.
+Suppose in FDTD simulation environment, run the current project and get its simulation status.
 
 ```msf
 run;
+getdata('FDTD','simulation status')  #returns 0/1/2/3/4/5, and the meanings are as follows.
+# 0: the project has not been run before
+# 1: finished all simulation time
+# 2: manual stop
+# 3: early shutoff
+# 4: divergence
+# 5: abnormal exit
 ```
 
 **See also**

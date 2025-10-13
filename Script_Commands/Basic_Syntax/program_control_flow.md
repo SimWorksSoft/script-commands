@@ -97,6 +97,7 @@ end
 
 Result:
 ```msf
+i = 0
 i = 1
 i = 2
 i = 3
@@ -137,7 +138,7 @@ if, while
 
 # break
 **Description**
-Breaks the `for` or `while` loop, the code after `break` sentence will not be execute.
+Breaks the `for` or `while` loop, the code after `break` sentence will not be executed.
 Used in FDTD and FDE.
 
 **Syntax**

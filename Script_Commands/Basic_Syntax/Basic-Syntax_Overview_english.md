@@ -8,25 +8,13 @@ sort: 260
 ---
 # Basic Syntax Overview
 
-The basic syntax includes:
-
-- Variables: definition of script variables and usage instructions, including numbers, character strings, structs, etc.;
-- Datasets: operation commands for datasets available in the software;
-- Program control statements: including judgment, loop, etc.;
-- Functions: use and description of user functions;
-- Save, import, export: script initialization, saving, importing, and exporting data.
+The basic syntax part introduces the fundamental elements of the software script language such as data types, flow control structures, user-defined functions, and the details about the usage of the built-in mathematical and physical functions. 
 
 ## Script Variables
 
-This section introduces the basic data types and operation rules. We provides various powerful data types and corresponding operations for users to process different kinds of data. Furthermore, some commonly-used mathematical and physical constants and special characters are predefined for convenient usage.
+This section introduces the basic data types and operation rules. We provide various powerful data types and corresponding operations for users to process different kinds of data. Furthermore, some commonly-used mathematical and physical constants and special characters are predefined for convenient usage.
 
 [Learn more>>](/localhost/knowledge-base/Script-Commands_script-variables)
-
-## Functions
-
-The section introduces the function, including user-defined functions and advanced built-in analysis functions used to process the complicated physical problems.
-
-[Learn more>>](/localhost/knowledge-base/Script-Commands_functions)
 
 ## Data Input and Output
 
@@ -46,9 +34,15 @@ This section introduces the basic operations including various operations on var
 
 [Learn more>>](/localhost/knowledge-base/Script-Commands_basic-operations)
 
+## Functions
+
+This section introduces the user-defined function and advanced built-in analysis functions used to process the complicated physical problems.
+
+[Learn more>>](/localhost/knowledge-base/Script-Commands_functions)
+
 ## Basic Maths
 
-This section describes the elementary math functions.
+This section describes elementary functions including trigonometric, logarithmic, exponential and power functions, and basic mathematical operations.
 
 [Learn more>>](/localhost/knowledge-base/Script-Commands_basic-maths)
 

@@ -25,7 +25,7 @@ Used in FDTD and FDE.
 |:---|:---|
 |`get`|Lists all the properties that can be gained from the selected object.|
 |`get('property_name');`|Gets the value of the property named *'property_name'* from the selected object. |
-|`get('porperty_name', k);`|Gets the value of the property named *'property_name'*  from the *k* th selected object when multiple objects are selected. The objects are ordered by their location in object tree. The uppermost selected object is given the index 1, and the index numbers increase as you go down the tree. |
+|`get('property_name', k);`|Gets the value of the property named *'property_name'*  from the *k* th selected object when multiple objects are selected. The objects are ordered by their location in object tree. The uppermost selected object is given the index 1, and the index numbers increase as you go down the tree. |
 
 
 **Example**
@@ -36,7 +36,8 @@ addrect;                       # add a rectangle structure
 set('name', 'new_rectangle');  # rename
 
 select('new_rectangle');
-get                            # list all the properties that can be gained 
+get                            # list all the properties that can be gained
+get('type')                    # new_rectangle's type: Rectangle
 ```
 
 Result:
@@ -77,7 +78,7 @@ z span
 Get x pos (m) of new_rectangle:
 ```msf
 select('new_rectangle');
-x_pos = get('x pos');        # get x pos (m) of new_rectangle
+x_pos = get('x pos')        # get x pos (m) of new_rectangle
 ```
 
 Result:
@@ -176,7 +177,7 @@ Used in FDTD and FDE.
 **Syntax**
 |Code|	Function|
 |:---|:---|
-|`getunits('physical_quantity');`|Gets the scale of the designated physical quantity to SI. The *'physical_quantity'* can be  *‘length'* , *'time'* , or *'frequency'* . |
+|`getunits('physical_quantity');`|Gets the ratio of units used in the software to SI. The *'physical_quantity'* can be  *‘length'* , *'time'* , or *'frequency'* . |
 
 **Example**
 
@@ -266,8 +267,8 @@ Used in FDTD and FDE.
 **Syntax**
 |Code	|Function|
 |:---|:---|
-|`havedata`|List all the datasets that the selected object has.|
-|`havedata('object_name', 'data_name');`| Return 1 if the object named *'object_name'* has the data named 'data_name'.|
+|`havedata`|Lists all the datasets that the selected object has.|
+|`havedata('object_name', 'data_name');`| Returns 1 if the object named *'object_name'* has the data named 'data_name'.|
 
 **Example**
 Select the FDFP monitor in FDTD, then run the following code.
@@ -377,7 +378,7 @@ Used in FDTD and FDE.
 **Syntax**
 |Code|Function|
 |:---|:---|
-|`getsolverdata('solver_results');`|Gets data in current solvers.|
+|`getsolverdata('solver_results');`|Gets data in the current solver.|
 
 
 **Example**
@@ -588,7 +589,7 @@ Used in FDTD.
 **Syntax**
 |Code	|Function|
 |:---|:---|
-|`selectparent; `|Selects the parent object of current object. |
+|`selectparent; `|Selects the parent object of current object. The function can only be used in analysis group or analysis data which has parent object. |
 
 **See also**
 getparentdata
@@ -633,7 +634,7 @@ Used in FDTD.
 **Syntax**
 |Code	|Function|
 |:---|:---|
-|`havesweepoptdata('sweep_name', 'data_name');`| Return 1 if the parameter sweep, optimization sweep, or S-Matrix sweep that named 'sweep_name' has the data named *'data_name'* .|
+|`havesweepoptdata('sweep_name', 'data_name');`| Returns 1 if the parameter sweep, optimization sweep, or S-Matrix sweep named 'sweep_name' has the data named *'data_name'* .|
 
 **See also**
 havedata
