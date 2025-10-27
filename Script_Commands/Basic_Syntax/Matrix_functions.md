@@ -236,9 +236,6 @@ Used in FDTD and FDE.
 - The matrix vector product A * x is a very common operation, efficiently performed with row-wise storage.
 - Row-wise (and column-wise) storage is a very general storage scheme that works well for general non-symmetric matrices. There is a penalty to pay for storing symmetric matrices in this fashion, but it is small.
 
-
-Rlab does not attempt to out-smart the user by automatically converting sparse matrices to dense matrices, or vice-versa. Even if the user explicitly fills the  sparse matrix so that the number of non-zeros is equal to the full size of the matrix, the sparse storage format is retained.
-
 Certain operations on sparse matrices will return dense matrices. For instance, the cosine operation on a sparse matrix will create a dense matrix with ones where there used to be zeros.
 
 Sparse matrices are printed differently than full, or dense matrices. Only the non-zero elements are printed, along with their row and column values. 
@@ -874,14 +871,6 @@ Computes the vector P norm.
 Used in FDTD and FDE.
 
 `vpnorm` computes the vector P-norm of V. The second argument is required, and specifies the value of P.
-
-A small Rlab program demonstrating the P-norm computation is provided below. However, `vpnorm` is implemented as a builtin function for maximum efficiency.
-
-```msf
-function pnorm = Pnorm( V , P )
-    pnorm =  (sum ( V.^P )).^(1/P);
-end;
-```
 
 **Syntax**
 |Code| Function|

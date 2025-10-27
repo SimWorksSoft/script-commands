@@ -34,7 +34,7 @@ The name of the number type variable can  consist of numbers, letters and unders
 
 **Operation**
 There are many operations that can be used on number type data.
-When using these operations, the precedence levels are important. Precedence levels determine the order in which RLAB evaluates an expression. Within each precedence level, operators have equal precedence and are evaluated from left to right. The precedence rules for RLAB operators are shown in this list, ordered from highest precedence level to lowest precedence level:
+When using these operations, the precedence levels are important. The operator precedence rules are listed below, ordered from highest to lowest precedence level:
 |Priority| Description(Character) |
 |:---|:---|
 |1(highest)| parentheses `( )` |

@@ -106,7 +106,6 @@ Used in FDTD and FDE.
 |:---|:---|
 |`who( );`|Returns a string matrix of all the names of the variables currently in the global symbol table.|
 |`who($$);`|Returns a string matrix of all the names of the variables currently in the global symbol table.|
-|`who( STRUCT );`|Returns the variable names of an RLaB struct.|
 
 **See also** 
 what
@@ -165,16 +164,15 @@ show, type
 Logs commands (program statements) to a file.
 Used in FDTD and FDE.
 
-The `diary` function echoes all input commands and Rlab output to a diary file. If 'file_name' is not specified, then a file named *DIARY* is opened.
+The `diary` function echoes all input commands and output to a diary file. If 'file_name' is not specified, then a file named *DIARY* is opened.
 
 The `diary`, used without any arguments, will turn on statement logging, or turn off statement logging if a diary file is already open.
 
 **Syntax**
 |Code|Function|
 |:---|:---|
-|`out = diary( );`|Echoes all input commands and Rlab output to a diary file. If 'file_name' is not specified, then a file named DIARY is opened.|
-|`out = diary( 'file_name' );`|Echoes all input commands and Rlab output to the diary file named *'file_name'*.|
-
+|`out = diary( );`|Echoes all input commands and output to a diary file. |
+|`out = diary( 'file_name' );`|Echoes all input commands and output to the diary file named *'file_name'*. If 'file_name' is not specified, then a file named DIARY is opened. |
 
 
 # entinfo
@@ -216,8 +214,6 @@ Jumping 'back to the prompt' means execution of the current loop or function is 
 Evaluates expressions.
 Used in FDTD and FDE.
 The `eval` function evaluates the statement contained in the string argument 'S'. `eval` returns the result of the statement in 'S'. `eval` can be used within functions and can distinguish local and argument variables from global.
-
-Before we go any further, we should note that `eval` is not really a necessary part of RLaB. Users should definitely not use it a crutch as with some other matrix programming languages. The RLaB concept of variables, and the struct class are more efficient ways of dealing with function evaluations and variable names than `eval`.
 
 **Syntax**
 |Code|Function|
@@ -737,7 +733,7 @@ Used in FDTD and FDE.
 **Syntax**
 |Code| Function|
 |:---|:---|
-|`out = tmpnam( )`|Returns a string that is not the name of an existing file. `tmpnam` generates a different name each time it is called. The string `tmpnam` returns can be used as a filename for RLaB's file I/O functions. |
+|`out = tmpnam( )`|Returns a string that is not the name of an existing file. `tmpnam` generates a different name each time it is called. |
 
 
 **See also**
@@ -758,7 +754,8 @@ Used in FDTD and FDE.
 
 
 **Example**
-On Linux operating system, the following code will allow the user to edit (create) the file test.r. When the vi process is finished the user will be back at the RLaB prompt.
+On Linux operating system, the following code will allow the user to edit (create) the file test.r. 
+
 ```msf
 system( 'vi test.r' )
 ```

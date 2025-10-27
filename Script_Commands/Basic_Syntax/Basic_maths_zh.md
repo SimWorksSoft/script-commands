@@ -1017,8 +1017,6 @@ asin
 Computes the arc-sin.
 Used in FDTD and FDE.
 
-RLaB trigonometric functions are designed to take scalars, and matrices as arguments. The return value is the input argument with the trigonometric operation performed element by element.
-
 The trigonometric functions use the C language math library functions, so details about the ranges and error conditions can be found by examining the appropriate manual pages on your system.
 
 **Syntax**
@@ -1046,8 +1044,6 @@ acos
 **Description**
 Computes the arc-tangent.
 Used in FDTD and FDE.
-
-RLaB trigonometric functions are designed to take scalars, and matrices as arguments. The return value is the input argument with the trigonometric operation performed element by element.
 
 The trigonometric functions use the C language math library functions, so details about the ranges and error conditions can be found by examining the appropriate manual pages on your system.
 
@@ -1078,8 +1074,6 @@ asin
 **Description**
 Computes the arc-tangent.
 Used in FDTD and FDE.
-
-RLaB trigonometric functions are designed to take scalars, and matrices as arguments. The return value is the input argument with the trigonometric operation performed element by element.
 
 The `atan2` function takes two arguments, which are the y, and x values used to form the tangent. All the trigonometric functions use the C language math library functions, so details about the ranges and error conditions can be found by examining the appropriate manual pages on your system.
 
@@ -1133,7 +1127,6 @@ sin
 Computes the sine.
 Used in FDTD and FDE.
 
-RLaB trigonometric functions are designed to take scalars, and matrices as arguments. The return value is the input argument with the trigonometric operation performed element by element.
 All the trigonometric functions use the C language math library functions, so details about the ranges and error conditions can be found by examining the appropriate manual pages on your system.
 
 **Syntax**
@@ -1152,8 +1145,6 @@ cos
 **Description**
 Computes the tangent.
 Used in FDTD and FDE.
-
-RLaB trigonometric functions are designed to take scalars, and matrices as arguments. The return value is the input argument with the trigonometric operation performed element by element.
 
 All the trigonometric functions use the C language math library functions, so details about the ranges and error conditions can be found by examining the appropriate manual pages on your system.
 
@@ -1193,8 +1184,6 @@ asind
 Computes the arc-sin, the output argument's unit is degree.
 Used in FDTD and FDE.
 
-RLaB trigonometric functions are designed to take scalars, and matrices as arguments. The return value is the input argument with the trigonometric operation performed element by element.
-
 The trigonometric functions use the C language math library functions, so details about the ranges and error conditions can be found by examining the appropriate manual pages on your system.
 
 **Syntax**
@@ -1213,8 +1202,6 @@ atand
 Computes the arc-tangent, the output argument's unit is degree.
 Used in FDTD and FDE.
 
-RLaB trigonometric functions are designed to take scalars, and matrices as arguments. The return value is the input argument with the trigonometric operation performed element by element.
-
 The trigonometric functions use the C language math library functions, so details about the ranges and error conditions can be found by examining the appropriate manual pages on your system.
 
 **Syntax**
@@ -1232,8 +1219,6 @@ atan2d
 **Description**
 Computes the arc-tangent, the output argument's unit is degree.
 Used in FDTD and FDE.
-
-RLaB trigonometric functions are designed to take scalars, and matrices as arguments. The return value is the input argument with the trigonometric operation performed element by element.
 
 `atan2` takes two arguments, which are the y, and x values used to form the tangent. All the trigonometric functions use the C language math library functions, so details about the ranges and error conditions can be found by examining the appropriate manual pages on your system.
 
@@ -1275,7 +1260,6 @@ sind
 Computes the sine, the input argument's unit is degree.
 Used in FDTD and FDE.
 
-RLaB trigonometric functions are designed to take scalars, and matrices as arguments. The return value is the input argument with the trigonometric operation performed element by element.
 All the trigonometric functions use the C language math library functions, so details about the ranges and error conditions can be found by examining the appropriate manual pages on your system.
 
 **Syntax**
@@ -1296,7 +1280,7 @@ Used in FDTD and FDE.
 **Syntax**
 |Code| Function|
 |:---|:---|
-|`out = tand( A );`|Computes the tangent, the input argument's unit is degree. RLaB trigonometric functions are designed to take scalars, and matrices as arguments. The return value is the input argument with the trigonometric operation performed element by element.|
+|`out = tand( A );`|Computes the tangent of an input argument in degrees. The function supports scalar and matrix arguments.|
 
 **See also**
 sind, cosd
